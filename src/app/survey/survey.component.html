@@ -1,0 +1,33 @@
+<div class="row">
+	<button i18n (click)="showNewOption()" class="btn btn-primary">New Option</button>
+</div>
+
+
+<form #optionForm="ngForm" (ngSubmit)="addNewOption(optionForm.value)">
+	<div class="form-group row">
+		<label for="name" class="col-sm-2 col-form-label" i18n>Short Name</label>
+		<input type="text" ngModel name="name" id="name" class="form-control col-sm-10" required/>
+	</div>
+
+
+	<div class="form-group row">
+		<label for="description" class="col-sm-2 col-form-label" i18n>Description</label>
+		<textarea ngModel name="description" id="description" class="form-control col-sm-10"></textarea>
+	</div>
+
+
+	<div class="form-group row">
+		<label for="photo" class="col-sm-2 col-form-label" i18n>Photo</label>
+		<input type="file" ngModel name="photo" (change)="optionForm.value.photo = $event.target.files[0]" />
+	</div>
+
+	<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! optionForm.valid" />
+
+</form>
+
+
+<div *ngFor="let option of options">
+	<p>{{ option.name }}</p>
+	<img [src]="option.srcUrl" width="200" height="150" />
+
+</div>

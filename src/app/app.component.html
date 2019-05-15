@@ -1,21 +1,69 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
 
-<router-outlet></router-outlet>
+	<div class="row">
+		<button i18n (click)="toggleNewSurvey()" class="btn btn-primary">New Survey</button>
+	</div>
+
+	<form *ngIf="newSurveyVisible" #surveyForm="ngForm" (ngSubmit)="addNewSurvey(surveyForm.value)">
+		<div class="form-group row">
+			<label for="name" class="col-sm-2 col-form-label" i18n>Short Name</label>
+			<input type="text" required ngModel name="name" id="name" class="form-control col-sm-10" required/>
+		</div>
+
+
+		<div class="form-group row">
+			<label for="description" class="col-sm-2 col-form-label" i18n>Description</label>
+			<textarea ngModel name="description" id="description" class="form-control col-sm-10"></textarea>
+		</div>
+
+
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label" i18n>Date from</label>
+			<input type="text" ngbDatepicker [ngModel]="fromDate0" name="fromDate" #fromDate="ngbDatepicker" (click)="fromDate.toggle()"
+			 size="11" readonly class="form-control  col-sm-4" required />
+			<ngb-timepicker [ngModel]="fromTime0" name="fromTime" class="col-sm-4" required></ngb-timepicker>
+		</div>
+
+
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label" i18n>Date until</label>
+			<input type="text" ngbDatepicker [ngModel]="untilDate0" name="untilDate" #untilDate="ngbDatepicker" (click)="untilDate.toggle()"
+			 size="11" readonly class="form-control col-sm-4" required/>
+			<ngb-timepicker [ngModel]="untilTime0" name="untilTime" class="col-sm-4"></ngb-timepicker>
+		</div>
+
+
+
+		<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! surveyForm.valid" />
+
+	</form>
+
+	<ng-container *ngIf="hasSurveys ; else noSurveys">
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col" i18n>Id</th>
+					<th scope="col" i18n>Name</th>
+					<th scope="col" i18n>Description</th>
+					<th scope="col" i18n>fromTimeStamp</th>
+					<th scope="col" i18n>untilTimeStamp</th>
+					<th scope="col" i18n>Delete</th>
+				</tr>
+			</thead>
+			<tr *ngFor="let survey of surveys">
+				<td><a routerLink="/survey" [queryParams]="{ id: survey.id }">{{survey.id}}</a></td>
+				<td>{{survey.name}}</td>
+				<td>{{survey.description}}</td>
+				<td>{{survey.fromDate.year}}-{{survey.fromDate.month}}-{{survey.fromDate.day}}  {{survey.fromTime.hour}}-{{survey.fromTime.minute}}-{{survey.fromTime.second}}</td>
+				<td>{{survey.untilDate.year}}-{{survey.untilDate.month}}-{{survey.untilDate.day}}  {{survey.untilTime.hour}}-{{survey.untilTime.minute}}-{{survey.untilTime.second}}</td>
+				<td><button (click)="deleteSurvey(survey.id)" i18n>Delete</button></td>
+			</tr>
+		</table>
+	</ng-container>
+
+	<ng-template #noSurveys>
+		<h1 i18n>No surveys.</h1>
+	</ng-template>
+
+</div>

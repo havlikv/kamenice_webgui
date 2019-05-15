@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="ng2.template">
+		<body>
+			<trans-unit id="ngb.alert.close" datatype="html">
+				<source>Close</source>
+				<target>Zavřít</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.d.ts</context>
+					<context context-type="linenumber">2</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.carousel.previous" datatype="html">
+				<source>Previous</source>
+				<target>Předchozí</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+					<context context-type="linenumber">13</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.carousel.next" datatype="html">
+				<source>Next</source>
+				<target>Příští</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+					<context context-type="linenumber">17</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.datepicker.previous-month" datatype="html">
+				<source>Previous Month</source>
+				<target>Předchozí měsíc</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+					<context context-type="linenumber">4</context>
+				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+					<context context-type="linenumber">5</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.datepicker.next-month" datatype="html">
+				<source>Next month</source>
+				<target>Přístí měsíc</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+					<context context-type="linenumber">26</context>
+				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+					<context context-type="linenumber">27</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.datepicker.select-month" datatype="html">
+				<source>Select month</source>
+				<target>Vzberte měsíc</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+					<context context-type="linenumber">6</context>
+				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+					<context context-type="linenumber">7</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.datepicker.select-year" datatype="html">
+				<source>Select year</source>
+				<target>Vyberte rok</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+					<context context-type="linenumber">15</context>
+				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+					<context context-type="linenumber">16</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.first" datatype="html">
+				<source>««</source>
+				<target>««</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">2</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.previous" datatype="html">
+				<source>«</source>
+				<target>«</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">3</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.next" datatype="html">
+				<source>»</source>
+				<target>»</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">4</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.last" datatype="html">
+				<source>»»</source>
+				<target>»»</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">5</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.first-aria" datatype="html">
+				<source>First</source>
+				<target>První</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">14</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.previous-aria" datatype="html">
+				<source>Previous</source>
+				<target>Předchozí</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">23</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.next-aria" datatype="html">
+				<source>Next</source>
+				<target>Příští</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">41</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.pagination.last-aria" datatype="html">
+				<source>Last</source>
+				<target>Poslední</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+					<context context-type="linenumber">49</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.progressbar.value" datatype="html">
+				<source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</source>
+				<target><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.d.ts</context>
+					<context context-type="linenumber">6</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+				<source>Increment hours</source>
+				<target>Zvýšit hodiny</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">9</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.HH" datatype="html">
+				<source>HH</source>
+				<target>HH</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">12</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.hours" datatype="html">
+				<source>Hours</source>
+				<target>Hodiny</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">14</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+				<source>Decrement hours</source>
+				<target>Snížit hodiny</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">20</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+				<source>Increment minutes</source>
+				<target>Zvýšit minuty</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">29</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.MM" datatype="html">
+				<source>MM</source>
+				<target>MM</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">32</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.minutes" datatype="html">
+				<source>Minutes</source>
+				<target>Minuty</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">34</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+				<source>Decrement minutes</source>
+				<target>Snížit minuty</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">40</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+				<source>Increment seconds</source>
+				<target>Zvýšit sekundy</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">49</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.SS" datatype="html">
+				<source>SS</source>
+				<target>SS</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">52</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.seconds" datatype="html">
+				<source>Seconds</source>
+				<target>Sekundy</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">54</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+				<source>Decrement seconds</source>
+				<target>Snížit sekundy</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">60</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.PM" datatype="html">
+				<source>PM</source>
+				<target>PM</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">68</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="ngb.timepicker.AM" datatype="html">
+				<source>AM</source>
+				<target>AM</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+					<context context-type="linenumber">69</context>
+				</context-group>
+			</trans-unit>
+			<trans-unit id="d076adbb3fab5be167493b385b0bab2e710998ed" datatype="html">
+				<source>Hello</source>
+				<target>Čau</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">app/app.component.html</context>
+					<context context-type="linenumber">26</context>
+				</context-group>
+				<note priority="1" from="description">pozdrav</note>
+			</trans-unit>
+			<trans-unit id="8bd9eb769e511852c28f133887185678ab81cb8b" datatype="html">
+				<source>Welcome to app.</source>
+				<target>Vítejte v app.</target>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/app.component.ts</context>
+					<context context-type="linenumber">1</context>
+				</context-group>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>
