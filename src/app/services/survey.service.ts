@@ -12,7 +12,7 @@ export class SurveyService
 	constructor() { }
 
 
-	add(survey: Survey): void
+	addSurvey(survey: Survey): void
 	{
 		survey.id = this.sequence;
 		this.sequence++;

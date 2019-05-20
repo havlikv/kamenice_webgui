@@ -9,7 +9,6 @@ import { ControlValueAccessor } from '@angular/forms';
 export class SurveyComponent implements OnInit, ControlValueAccessor
 {
 
-	private survey: Survey;
 
 
 	constructor() { }

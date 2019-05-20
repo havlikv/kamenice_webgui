@@ -11,6 +11,12 @@ import { SurveyService } from './services/survey.service';
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyFormComponent } from './survey-form/survey-form.component';
 
+import localeCs from '@angular/common/locales/cs';
+import { registerLocaleData } from '@angular/common';
+
+
+registerLocaleData(localeCs, 'cs');
+
 
 
 declare const require;

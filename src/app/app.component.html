@@ -5,37 +5,9 @@
 	</div>
 
 	<form *ngIf="newSurveyVisible" #surveyForm="ngForm" (ngSubmit)="addNewSurvey(surveyForm.value)">
-		<div class="form-group row">
-			<label for="name" class="col-sm-2 col-form-label" i18n>Short Name</label>
-			<input type="text" required ngModel name="name" id="name" class="form-control col-sm-10" required/>
-		</div>
-
-
-		<div class="form-group row">
-			<label for="description" class="col-sm-2 col-form-label" i18n>Description</label>
-			<textarea ngModel name="description" id="description" class="form-control col-sm-10"></textarea>
-		</div>
-
-
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label" i18n>Date from</label>
-			<input type="text" ngbDatepicker [ngModel]="fromDate0" name="fromDate" #fromDate="ngbDatepicker" (click)="fromDate.toggle()"
-			 size="11" readonly class="form-control  col-sm-4" required />
-			<ngb-timepicker [ngModel]="fromTime0" name="fromTime" class="col-sm-4" required></ngb-timepicker>
-		</div>
-
-
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label" i18n>Date until</label>
-			<input type="text" ngbDatepicker [ngModel]="untilDate0" name="untilDate" #untilDate="ngbDatepicker" (click)="untilDate.toggle()"
-			 size="11" readonly class="form-control col-sm-4" required/>
-			<ngb-timepicker [ngModel]="untilTime0" name="untilTime" class="col-sm-4"></ngb-timepicker>
-		</div>
-
-
+		<app-survey-form  [(ngModel)]="survey" [survey]="survey" name="survey"  ></app-survey-form>
 
 		<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! surveyForm.valid" />
-
 	</form>
 
 	<ng-container *ngIf="hasSurveys ; else noSurveys">
