@@ -6,38 +6,13 @@ import { ControlValueAccessor } from '@angular/forms';
 	templateUrl: './survey.component.html',
 	styleUrls: ['./survey.component.css']
 })
-export class SurveyComponent implements OnInit, ControlValueAccessor
+export class SurveyComponent implements OnInit
 {
-
-
 
 	constructor() { }
 
 	ngOnInit()
 	{
-	}
-
-
-
-	writeValue(obj: any): void
-	{
-	}
-
-
-
-	registerOnChange(fn: any): void
-	{
-	}
-
-
-
-	registerOnTouched(fn: any): void
-	{
-	}
-
-
-
-	setDisabledState?(isDisabled: boolean): void
-	{
+		console.log("XXX");
 	}
 }

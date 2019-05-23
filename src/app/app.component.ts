@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { Survey } from './domain/survey';
 import { SurveyService } from './services/survey.service';
 
@@ -13,9 +14,10 @@ export class AppComponent implements OnInit
 {
 	newSurveyVisible = true;
 	survey: Survey = null;
+	surveys: Survey[] = [];
 
 
-	constructor(private surveyService: SurveyService)
+	constructor(private surveyService: SurveyService, private router: Router)
 	{
 	}
 
@@ -38,7 +40,9 @@ export class AppComponent implements OnInit
 			fromDate: { year: start.getFullYear(), month: start.getMonth() + 1, day: start.getDay() },
 			fromTime: { hour: 0, minute: 0, second: 0 },
 			untilDate: { year: end.getFullYear(), month: end.getMonth() + 1, day: end.getDay() },
-			untilTime: { hour: 23, minute: 59, second: 59 }
+			untilTime: { hour: 23, minute: 59, second: 59 },
+
+			options: []
 		}
 	}
 
@@ -54,21 +58,30 @@ export class AppComponent implements OnInit
 	addSurvey(survey: Survey): void
 	{
 		console.log(survey);
-		this.surveyService.addSurvey(survey);
+		this.surveyService.addSurvey(survey).subscribe(
+			id =>  {
+						this.router.navigate([ `/survey/${id}` ]);
+			}
+		);
+
 	}
 
 
 
-	get surveys(): Survey[]
+	getSurveys(): void
 	{
-		return this.surveyService.getSurveys();
+		this.surveyService.getSurveys().subscribe(
+			surveys => {
+				this.surveys = surveys;
+			}
+		);
 	}
 
 
 
 	get hasSurveys(): boolean
 	{
-		return this.surveyService.hasSurveys();
+		return this.surveys.length > 0;
 	}
 
 }

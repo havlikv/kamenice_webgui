@@ -4,7 +4,7 @@
 		<button i18n (click)="toggleNewSurvey()" class="btn btn-primary">New Survey</button>
 	</div>
 
-	<form *ngIf="newSurveyVisible" #surveyForm="ngForm" (ngSubmit)="addNewSurvey(surveyForm.value)">
+	<form *ngIf="newSurveyVisible" #surveyForm="ngForm" (ngSubmit)="addSurvey(surveyForm.value)">
 		<app-survey-form  [(ngModel)]="survey" [survey]="survey" name="survey"  ></app-survey-form>
 
 		<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! surveyForm.valid" />
@@ -23,7 +23,7 @@
 					<th scope="col" i18n>Delete</th>
 				</tr>
 			</thead>
-			<tr *ngFor="let survey of surveys">
+			<tr *ngFor="let survey of getSurveys()">
 				<td><a routerLink="/survey" [queryParams]="{ id: survey.id }">{{survey.id}}</a></td>
 				<td>{{survey.name}}</td>
 				<td>{{survey.description}}</td>
