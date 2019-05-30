@@ -13,6 +13,8 @@ import { SurveyFormComponent } from './survey-form/survey-form.component';
 
 import localeCs from '@angular/common/locales/cs';
 import { registerLocaleData } from '@angular/common';
+import { SurveysComponent } from './surveys/surveys.component';
+import { SafePipe } from './safe.pipe';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -28,7 +30,9 @@ export const translations = require(`raw-loader!../locale/messages.cs.xlf`);
     AppComponent,
     SortableDirective,
     SurveyComponent,
-    SurveyFormComponent
+    SurveyFormComponent,
+    SurveysComponent,
+    SafePipe
   ],
   imports: [
   BrowserModule,

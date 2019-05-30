@@ -20,13 +20,32 @@ export class SurveyService
 	constructor(private i18n: I18n) { }
 
 
-	addSurvey(survey: Survey): Observable<number>
+	addSurvey(inSurvey: Survey): Observable<number>
 	{
+		let survey: Survey = SurveyService.deepCopy(inSurvey);
+
 		survey.id = this.surveySeq;
 		this.surveySeq++;
 		this.surveys.push(survey);
 
 		return of(survey.id);
+	}
+
+
+
+	updateSurvey(inSurvey: Survey): Observable<void>
+	{
+		const index = this.findSurveyIndexById(inSurvey.id);
+
+		if(index < 0)
+		{
+			throwError(this.i18n("Cannot update."));
+		}
+
+		let survey: Survey = SurveyService.deepCopy(inSurvey);
+		this.surveys.splice(index, 1, survey);
+
+		return of();
 	}
 
 
@@ -65,7 +84,13 @@ export class SurveyService
 
 	getSurveys(): Observable<Survey[]>
 	{
-		return of(this.surveys);
+		let surveys: Survey[] = [];
+		for(const survey of this.surveys)
+		{
+			surveys.push(SurveyService.deepCopy(survey));
+		}
+
+		return of(surveys);
 	}
 
 
@@ -77,7 +102,21 @@ export class SurveyService
 
 
 
-	addOption(surveyId: number, toBeOption: ToBeOption): Observable<void>
+	getSurveyById(id: number): Observable<Survey>
+	{
+		const index = this.findSurveyIndexById(id);
+		if(index < 0)
+		{
+			return throwError(this.i18n("Cannot get."));
+		}
+		const survey = this.surveys[index];
+
+		return of(SurveyService.deepCopy(survey));
+	}
+
+
+
+	addOption(surveyId: number, inToBeOption: ToBeOption): Observable<void>
 	{
 		const index = this.findSurveyIndexById(surveyId);
 		if(index < 0)
@@ -85,7 +124,8 @@ export class SurveyService
 			throwError(this.i18n("Cannot add."));
 		}
 		const survey = this.surveys[index];
-		survey.options.push( this.convertToBeOption_to_FromBeOption(toBeOption) );
+		let fromBeOption = this.convertToBeOption_to_FromBeOption(inToBeOption);
+		survey.options.push( SurveyService.deepCopy(fromBeOption) );
 
 		return of();
 	}
@@ -107,7 +147,7 @@ export class SurveyService
 			let fromBeOption = options[i];
 			if(fromBeOption.id === optionId)
 			{
-				URL.revokeObjectURL(fromBeOption.photoUrl);
+				URL.revokeObjectURL(fromBeOption.imageUrl);
 				options.splice(i, 1);
 
 				return of();
@@ -121,13 +161,20 @@ export class SurveyService
 
 	convertToBeOption_to_FromBeOption(toBeOption: ToBeOption): FromBeOption
 	{
-		let fromBeOption: FromBeOption;
-
-		fromBeOption.id = this.optionSeq++;
-		fromBeOption.name = toBeOption.name;
-		fromBeOption.description = toBeOption.description;
-		fromBeOption.photoUrl = URL.createObjectURL(toBeOption.file);
+		let fromBeOption = {
+			id: this.optionSeq++,
+			name: toBeOption.name,
+			description: toBeOption.description,
+			imageUrl: window.URL.createObjectURL(toBeOption.image),
+		};
 
 		return fromBeOption;
+	}
+
+
+
+	static deepCopy(obj: any): any
+	{
+		return JSON.parse(JSON.stringify(obj));
 	}
 }
