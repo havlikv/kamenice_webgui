@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, Validator, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Survey } from "../domain/survey";
 
@@ -20,19 +20,49 @@ import { Survey } from "../domain/survey";
 		multi: true
 	}]
 })
-export class SurveyFormComponent implements OnInit, ControlValueAccessor, Validator
+export class SurveyFormComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, Validator
 {
 
 	@Input("survey") survey: Survey;
 	private changeFn = null;
+	private touchFn = (x) => {};
+
+	@ViewChild("fromTimePicker", {read: ElementRef}) fromTimePicker: ElementRef;
+	@ViewChild("untilTimePicker", {read: ElementRef}) untilTimePicker: ElementRef;
+
 
 
 	constructor() { }
 
-
 	ngOnInit()
 	{
-		//console.log(this.survey.fromDate.year);
+	}
+
+
+	private makeListener(subject)
+	{
+		return function()
+		{
+			subject.touch.apply(subject);
+		}
+	}
+
+
+
+	ngAfterViewInit()
+	{
+		const inp = this.fromTimePicker.nativeElement.children[0].children[0].children[0].children[0];
+
+		const f = this.makeListener(this);
+
+		inp.addEventListener("blur", f);
+	}
+
+
+
+	ngOnDestroy(): void
+	{
+
 	}
 
 
@@ -52,6 +82,7 @@ export class SurveyFormComponent implements OnInit, ControlValueAccessor, Valida
 
 	registerOnTouched(fn: any): void
 	{
+		this.touchFn = fn;
 	}
 
 
@@ -62,13 +93,27 @@ export class SurveyFormComponent implements OnInit, ControlValueAccessor, Valida
 	}
 
 
+	touch(): void
+	{
+		console.log("TOUCHED.");
+
+		this.touchFn(this.survey);
+	}
+
 
 	validate(control: AbstractControl): ValidationErrors | null
 	{
-		if(this.survey && ! this.survey.name)
+		if(this.survey)
 		{
-			return { err: "XXX"} ;
+			if(! this.survey.name)
+			{
+				return { err: "XXX"} ;
+			}
+
+
+
 		}
+
 
 		return null;
 	}
