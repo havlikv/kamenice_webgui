@@ -1,4 +1,4 @@
-export interface ToBeOption
+export interface FeOption
 {
 	name: string;
 	description: string;

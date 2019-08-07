@@ -5,7 +5,7 @@
 	</div>
 
 	<form *ngIf="newSurveyVisible" #surveyForm="ngForm" (ngSubmit)="addSurvey(surveyForm.value.survey)">
-		<app-survey-form  [(ngModel)]="survey" [survey]="survey" name="survey"  ></app-survey-form>
+		<app-survey-form [ngModel]="survey" [survey]="survey" name="survey"  ></app-survey-form>
 
 		<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! surveyForm.valid" />
 	</form>

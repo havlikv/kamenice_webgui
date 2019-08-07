@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Survey } from '../domain/survey';
 import { SurveyService } from '../services/survey.service';
-import { ToBeOption } from '../domain/ToBeOption';
+import { BeOption } from '../domain/BeOption';
 
 
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Survey } from '../domain/survey';
-import { ToBeOption } from '../domain/ToBeOption';
+import { FeOption } from '../domain/FeOption';
 import { Observable, of, throwError }  from "rxjs";
-import { FromBeOption } from '../domain/FromBeOption';
+import { BeOption } from '../domain/BeOption';
 import { I18n } from "@ngx-translate/i18n-polyfill";
 
 
@@ -116,7 +116,7 @@ export class SurveyService
 
 
 
-	addOption(surveyId: number, inToBeOption: ToBeOption): Observable<void>
+	addOption(surveyId: number, inToBeOption: FeOption): Observable<void>
 	{
 		const index = this.findSurveyIndexById(surveyId);
 		if(index < 0)
@@ -159,13 +159,13 @@ export class SurveyService
 
 
 
-	convertToBeOption_to_FromBeOption(toBeOption: ToBeOption): FromBeOption
+	convertToBeOption_to_FromBeOption(feOption: FeOption): BeOption
 	{
 		let fromBeOption = {
 			id: this.optionSeq++,
-			name: toBeOption.name,
-			description: toBeOption.description,
-			imageUrl: window.URL.createObjectURL(toBeOption.image),
+			name: feOption.name,
+			description: feOption.description,
+			imageUrl: window.URL.createObjectURL(feOption.image),
 		};
 
 		return fromBeOption;

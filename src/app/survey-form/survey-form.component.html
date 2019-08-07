@@ -2,7 +2,7 @@
 	<label for="name" class="col-sm-3 col-form-label" i18n>Short Name</label>
 
 	<input type="text" [(ngModel)]="survey.name" name="name" id="name" class="form-control col-sm-9"
-		(ngModelChange)="change()" (blur)="touch()" required/>
+		(ngModelChange)="change()" (blur)="touch()" />
 </div>
 
 
@@ -18,11 +18,11 @@
 	<label class="col-sm-3 col-form-label" i18n>Date from</label>
 
 	<input type="text" ngbDatepicker [(ngModel)]="survey.fromDate" name="fromDate" #fromDate="ngbDatepicker" (click)="fromDate.toggle()"
-	 size="11" readonly class="form-control  col-sm-4" required
+	 size="11" readonly class="form-control  col-sm-4"
 	 	(ngModelChange)="change()"  (blur)="touch()" />
 
 	<ngb-timepicker #fromTimePicker [(ngModel)]="survey.fromTime" name="fromTime" class="col-sm-5"
-		(ngModelChange)="change()" required [spinners]="false"></ngb-timepicker>
+		(ngModelChange)="change()"  [spinners]="false"></ngb-timepicker>
 </div>
 
 
@@ -31,8 +31,11 @@
 
 	<input type="text" ngbDatepicker [(ngModel)]="survey.untilDate" name="untilDate" #untilDate="ngbDatepicker" (click)="untilDate.toggle()"
 	 size="11" readonly class="form-control col-sm-4"
-	 	(ngModelChange)="change()" (blur)="touch()" required/>
+	 	(ngModelChange)="change()" (blur)="touch()" />
 
 	<ngb-timepicker #untilTimePicker [(ngModel)]="survey.untilTime" name="untilTime" class="col-sm-5"
 		(ngModelChange)="change()" [spinners]="false"></ngb-timepicker>
 </div>
+
+<div>{{ fromTimePicker.model.hour }}</div>
+
