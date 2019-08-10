@@ -1,18 +1,18 @@
-<div class="row">
-	<button i18n (click)="toggleNewSurvey()" class="btn btn-primary">New Survey</button>
+<div>
+	<button i18n (click)="toggleNewSurvey()" >New Survey</button>
 </div>
 
 <form *ngIf="newSurveyVisible" #surveyForm="ngForm" (ngSubmit)="addSurvey(surveyForm.value)">
 	<app-survey-form [(ngModel)]="survey" #surveyForm="ngModel" [survey]="survey" name="survey"></app-survey-form>
 
-	<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! surveyForm.valid" />
+	<input type="submit" name="send" value="send" [disabled]="! surveyForm.valid" />
 
 	<div *ngIf="!surveyForm.valid">{{ surveyForm.errors.err }}</div>
 </form>
 
 <ng-container *ngIf="hasSurveys ; else noSurveys">
 
-	<table class="table">
+	<table>
 		<thead>
 			<tr>
 				<th scope="col" i18n>Id</th>

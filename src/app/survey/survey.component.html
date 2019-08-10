@@ -7,7 +7,7 @@
 	<form #surveyForm="ngForm" (ngSubmit)="updateSurvey(surveyForm.value.survey)">
 		<app-survey-form [(ngModel)]="survey" [survey]="survey" name="survey"></app-survey-form>
 
-		<input type="submit" name="send" value="Edit" class="btn btn-primary" [disabled]="! surveyForm.valid" />
+		<input type="submit" name="send" value="Edit" [disabled]="! surveyForm.valid" />
 	</form>
 
 
@@ -15,24 +15,24 @@
 
 
 	<form #optionForm="ngForm" (ngSubmit)="addOption(optionForm.value)">
-		<div class="form-group row">
-			<label for="name" class="col-sm-1 col-form-label" i18n>Short Name</label>
-			<input type="text" ngModel name="name" id="name" class="form-control col-sm-6" required/>
+		<div>
+			<label for="name"  i18n>Short Name</label>
+			<input type="text" ngModel name="name" id="name" required/>
 		</div>
 
 
-		<div class="form-group row">
-			<label for="description" class="col-sm-1 col-form-label" i18n>Description</label>
-			<textarea ngModel name="description" id="description" class="form-control col-sm-6"></textarea>
+		<div>
+			<label for="description" i18n>Description</label>
+			<textarea ngModel name="description" id="description"></textarea>
 		</div>
 
 
-		<div class="form-group row">
-			<label for="image" class="col-sm-1 col-form-label" i18n>Photo</label>
+		<div>
+			<label for="image" i18n>Photo</label>
 			<input type="file" ngModel name="image" id="image" (change)="optionForm.value.image = $event.target.files[0]" />
 		</div>
 
-		<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! optionForm.valid" />
+		<input type="submit" name="send" value="send"[disabled]="! optionForm.valid" />
 
 	</form>
 

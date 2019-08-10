@@ -1,18 +1,18 @@
-<div [formGroup]="formGroup" class="option col-sm-8" >
-	<div class="form-group row">
-		<label for="name" class="col-sm-4 col-form-label" i18n>Short Name</label>
-		<input type="text" formControlName="name" id="name" class="form-control col-sm-8" />
+<div [formGroup]="formGroup"  >
+	<div>
+		<label for="name" i18n>Short Name</label>
+		<input type="text" formControlName="name" id="name"  />
 	</div>
 
 
-	<div class="form-group row">
-		<label for="description" class="col-sm-4 col-form-label" i18n>Description</label>
-		<textarea formControlName="description" id="description" class="form-control col-sm-8"></textarea>
+	<div>
+		<label for="description" i18n>Description</label>
+		<textarea formControlName="description" id="description"></textarea>
 	</div>
 
 
-	<div class="form-group row">
-		<label for="file" class="col-sm-4 col-form-label" i18n>Photo</label>
+	<div>
+		<label for="file"  i18n>Photo</label>
 		<input type="file" id="file" (change)="fileChanged($event.target.files[0])" />
 	</div>
 

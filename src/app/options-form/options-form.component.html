@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" (ngSubmit)="new()" class="option col-sm-8">
+<form [formGroup]="formGroup" (ngSubmit)="new()">
 	<app-option-form formControlName="option"></app-option-form>
 
 	<input type="submit" value="New" [disabled]="! formGroup.valid" />

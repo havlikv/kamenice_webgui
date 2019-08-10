@@ -1,38 +1,38 @@
-<div id="survey-form-component" class="col-sm-8">
-	<div class="form-group row">
-		<label for="name" class="col-sm-2 col-form-label" i18n>Short Name</label>
+<div id="survey-form-component">
+	<div>
+		<label for="name" i18n>Short Name</label>
 
-		<input type="text" [(ngModel)]="survey.name" name="name" id="name" class="form-control col-sm-6" (ngModelChange)="change()"
+		<input type="text" [(ngModel)]="survey.name" name="name" id="name"  (ngModelChange)="change()"
 		 (blur)="touch()" #name="ngModel" required />
 	</div>
 
 
-	<div class="form-group row">
-		<label for="description" class="col-sm-2 col-form-label" i18n>Description</label>
+	<div>
+		<label for="description" i18n>Description</label>
 
-		<textarea [(ngModel)]="survey.description" name="description" id="description" class="form-control col-sm-6" (ngModelChange)="change()"
+		<textarea [(ngModel)]="survey.description" name="description" id="description" (ngModelChange)="change()"
 		 (blur)="touch()" required></textarea>
 	</div>
 
 
-	<div class="form-group row">
-		<label class="col-sm-2 col-form-label" i18n>Date from</label>
+	<div>
+		<label i18n>Date from</label>
 
 		<input type="text" ngbDatepicker [(ngModel)]="survey.fromDate" name="fromDate" #fromDate="ngbDatepicker" (click)="fromDate.toggle()"
-		 size="11" readonly class="form-control  col-sm-4" (ngModelChange)="change()" (blur)="touch()" />
+		 size="11" readonly (ngModelChange)="change()" (blur)="touch()" />
 
-		<ngb-timepicker #fromTimePicker #fromTimePickerNgModel="ngModel" [(ngModel)]="survey.fromTime" name="fromTime" class="col-sm-3"
+		<ngb-timepicker #fromTimePicker #fromTimePickerNgModel="ngModel" [(ngModel)]="survey.fromTime" name="fromTime"
 		 (ngModelChange)="change()" [spinners]="false" appNgbTimePickerValidator></ngb-timepicker>
 	</div>
 
 
-	<div class="form-group row">
-		<label class="col-sm-2 col-form-label" i18n>Date until</label>
+	<div>
+		<label i18n>Date until</label>
 
 		<input type="text" ngbDatepicker [(ngModel)]="survey.untilDate" name="untilDate" #untilDate="ngbDatepicker" (click)="untilDate.toggle()"
-		 size="11" readonly class="form-control col-sm-4" (ngModelChange)="change()" (blur)="touch()" />
+		 size="11" readonly (ngModelChange)="change()" (blur)="touch()" />
 
-		<ngb-timepicker #untilTimePicker [(ngModel)]="survey.untilTime" name="untilTime" class="col-sm-3" (ngModelChange)="change()"
+		<ngb-timepicker #untilTimePicker [(ngModel)]="survey.untilTime" name="untilTime" (ngModelChange)="change()"
 		 [spinners]="false"></ngb-timepicker>
 	</div>
 
