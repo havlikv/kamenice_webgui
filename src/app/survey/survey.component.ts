@@ -5,7 +5,7 @@ import { SurveyService } from '../services/survey.service';
 import { Survey } from "../domain/survey";
 import { Observable } from 'rxjs';
 import { Router } from "@angular/router";
-import { FeOption } from '../domain/FeOption';
+import { Option } from '../domain/Option';
 
 
 
@@ -76,9 +76,20 @@ export class SurveyComponent implements OnInit
 
 
 
-	addOption(feOption: FeOption): void
+	addOption(option: Option): void
 	{
-		this.surveyService.addOption(this.survey.id, feOption).subscribe(null, null,
+		this.surveyService.addOption(this.survey.id, option).subscribe(null, null,
+			() => {
+				this.loadSurvey(this.survey.id);
+			}
+		)
+	}
+
+
+
+	deleteOption(optionId: number): void
+	{
+		this.surveyService.deleteOption(this.survey.id, optionId).subscribe(null, null,
 			() => {
 				this.loadSurvey(this.survey.id);
 			}

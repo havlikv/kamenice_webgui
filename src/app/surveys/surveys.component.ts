@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Survey } from '../domain/survey';
 import { SurveyService } from '../services/survey.service';
-import { BeOption } from '../domain/BeOption';
+import { Option } from '../domain/Option';
 
 
 
@@ -13,21 +13,21 @@ import { BeOption } from '../domain/BeOption';
 })
 export class SurveysComponent implements OnInit
 {
-	newSurveyVisible = true;
-	survey: Survey = null;
+	newSurveyVisible = false;
+	survey: Survey;
 	surveys: Survey[] = [];
 
 
 	constructor(private surveyService: SurveyService, private router: Router)
 	{
+		console.log("Constructing surveys");
+		this.presetNewSurvey();
 	}
 
 
 
 	ngOnInit(): void
 	{
-		this.presetNewSurvey();
-
 		this.loadSurveys();
 	}
 

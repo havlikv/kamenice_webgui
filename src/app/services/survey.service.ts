@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Survey } from '../domain/survey';
-import { FeOption } from '../domain/FeOption';
 import { Observable, of, throwError }  from "rxjs";
-import { BeOption } from '../domain/BeOption';
+import { Option } from '../domain/Option';
 import { I18n } from "@ngx-translate/i18n-polyfill";
 
 
@@ -22,6 +21,8 @@ export class SurveyService
 
 	addSurvey(inSurvey: Survey): Observable<number>
 	{
+		console.log(inSurvey);
+
 		let survey: Survey = SurveyService.deepCopy(inSurvey);
 
 		survey.id = this.surveySeq;
@@ -116,7 +117,7 @@ export class SurveyService
 
 
 
-	addOption(surveyId: number, inToBeOption: FeOption): Observable<void>
+	addOption(surveyId: number, option: Option): Observable<void>
 	{
 		const index = this.findSurveyIndexById(surveyId);
 		if(index < 0)
@@ -124,8 +125,10 @@ export class SurveyService
 			throwError(this.i18n("Cannot add."));
 		}
 		const survey = this.surveys[index];
-		let fromBeOption = this.convertToBeOption_to_FromBeOption(inToBeOption);
-		survey.options.push( SurveyService.deepCopy(fromBeOption) );
+
+		option.imageUrl = window.URL.createObjectURL(option.file);
+
+		survey.options.push( SurveyService.deepCopy(option) );
 
 		return of();
 	}
@@ -144,10 +147,10 @@ export class SurveyService
 
 		for(let i=0; i < options.length; i++)
 		{
-			let fromBeOption = options[i];
-			if(fromBeOption.id === optionId)
+			let option = options[i];
+			if(option.id === optionId)
 			{
-				URL.revokeObjectURL(fromBeOption.imageUrl);
+				URL.revokeObjectURL(option.imageUrl);
 				options.splice(i, 1);
 
 				return of();
@@ -155,20 +158,6 @@ export class SurveyService
 		}
 
 		return throwError(this.i18n("Cannot delete."));
-	}
-
-
-
-	convertToBeOption_to_FromBeOption(feOption: FeOption): BeOption
-	{
-		let fromBeOption = {
-			id: this.optionSeq++,
-			name: feOption.name,
-			description: feOption.description,
-			imageUrl: window.URL.createObjectURL(feOption.image),
-		};
-
-		return fromBeOption;
 	}
 
 

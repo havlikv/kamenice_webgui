@@ -1,9 +1,10 @@
 import { SafeUrl } from '@angular/platform-browser';
 
-export interface BeOption
+export interface Option
 {
-	id: number;
+	id?: number;
 	name: string;
 	description: string;
 	imageUrl: string;
+	file: string;
 }

@@ -1,0 +1,11 @@
+.form-control.ng-invalid {
+	border: 2px solid red;
+}
+
+
+
+.option {
+	border: 2px solid grey;
+	padding: 1rem;
+	border-radius: 4px;
+}

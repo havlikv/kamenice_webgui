@@ -1,5 +1,5 @@
 import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { BeOption } from './BeOption';
+import { Option } from './Option';
 
 
 
@@ -13,5 +13,5 @@ export interface Survey
     untilDate: NgbDateStruct;
 	untilTime: NgbTimeStruct;
 
-	options: BeOption[];
+	options: Option[];
 }

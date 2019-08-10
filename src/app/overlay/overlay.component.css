@@ -1,0 +1,31 @@
+.overlay {
+	z-index: 99;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(200, 200, 200, 0.3);
+}
+
+
+
+.overlay-inside {
+	z-index: 100;
+	position: fixed;
+	width: 80%;
+	height: 80%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+	overflow: auto;
+}
+
+
+
+div > img {
+	width: auto;
+	height : auto;
+}
+

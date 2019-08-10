@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALIDATORS, Validator, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors } from '@angular/forms';
+import { ControlValueAccessor, NG_VALIDATORS, Validator, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, NgModel } from '@angular/forms';
 import { Survey } from "../domain/survey";
 import { NgbTimepicker } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,8 +31,10 @@ export class SurveyFormComponent implements OnInit, AfterViewInit, OnDestroy, Co
 	@ViewChild("fromTimePicker", {read: ElementRef}) fromTimePicker: ElementRef;
 	@ViewChild("untilTimePicker", {read: ElementRef}) untilTimePicker: ElementRef;
 
+	@ViewChild("fromTimePickerNgModel") fromTimePickerNgModel: NgModel;
 
-	constructor() { }
+	constructor() {
+	}
 
 	ngOnInit()
 	{
@@ -103,6 +105,8 @@ export class SurveyFormComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
 	validate(control: AbstractControl): ValidationErrors | null
 	{
+		console.log("Validating ..");
+
 		if(this.survey)
 		{
 			if(! this.survey.name)
@@ -115,7 +119,10 @@ export class SurveyFormComponent implements OnInit, AfterViewInit, OnDestroy, Co
 				return { err: "XXX2"} ;
 			}
 
-
+			if( ! this.fromTimePickerNgModel.valid)
+			{
+				return { err: "Prdel"};
+			}
 
 		}
 
