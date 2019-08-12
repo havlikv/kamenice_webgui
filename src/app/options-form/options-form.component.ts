@@ -53,6 +53,8 @@ export class OptionsFormComponent implements OnInit
 		});
 		x.get("option").setValue(option);
 		this.formGroups.push(x);
+
+		this.formGroup.reset();
 	}
 
 
@@ -60,13 +62,12 @@ export class OptionsFormComponent implements OnInit
 	edit(i: number): void
 	{
 		let option: Option = this.formGroups[i].value.option;
-		console.log(option);
 
 		option.imageUrl =  window.URL.createObjectURL(option.file);
 
 		this.formGroups[i].get("option").setValue(option);
 
-		this.formGroups[i].markAsUntouched();
+		this.formGroups[i].markAsPristine();
 	}
 
 

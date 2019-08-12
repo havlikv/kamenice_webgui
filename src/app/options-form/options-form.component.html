@@ -9,7 +9,7 @@
 	<form [formGroup]="formGroups[i]" (ngSubmit)="edit(i)">
 		<app-option-form formControlName="option"></app-option-form>
 
-		<input type="submit" value="Edit" [ngClass]="{'red-border': formGroups[i].touched }" [disabled]="! (formGroups[i].valid && formGroups[i].touched)" />
+		<input type="submit" value="Edit" [ngClass]="{'red-border': formGroups[i].dirty }" [disabled]="! ( formGroups[i].dirty && formGroups[i].valid )" />
 	</form>
 	<button (click)="delete(i)">Delete</button>
 </div>

@@ -58,6 +58,16 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			x.valueAccessor.registerOnTouched(function() {
 				comp.touched();
 			});
+
+			if(x.name == "file")
+			{
+				x.valueAccessor.registerOnChange(function() {
+					let x: FormGroup = comp.formGroup;
+					let file: File = x.get("file").value;
+					let imageUrl = window.URL.createObjectURL(file);
+					x.get("imageUrl").setValue(imageUrl);
+				})
+			}
 		} );
 	}
 
@@ -66,20 +76,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	ngOnDestroy(): void
 	{
 		this.subscribtions.forEach( (s) => { s.unsubscribe(); });
-	}
-
-
-
-	fileChanged(file: File): void
-	{
-		if(!file)
-		{
-			file = null;
-		}
-
-		this.formGroup.get("file").setValue(file);
-
-		this.touched();
+		URL.revokeObjectURL(this.formGroup.get("imageUrl").value);
 	}
 
 
@@ -87,10 +84,18 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	writeValue(option: Option): void
 	{
 		let x = this.formGroup;
-		x.get("name").setValue(option.name);
-		x.get("description").setValue(option.description);
-		x.get("file").setValue(option.file);
-		x.get("imageUrl").setValue(option.imageUrl);
+		if(option)
+		{
+			x.setValue(option);
+
+			return;
+		}
+
+		x.get("name").setValue(null);
+		x.get("description").setValue(null);
+		x.get("file").setValue(null);
+		x.get("imageUrl").setValue(null);
+
 	}
 
 
@@ -128,6 +133,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 
 		return null;
 	}
+
 
 
 	doOverlay(): void

@@ -1,4 +1,4 @@
-<div [formGroup]="formGroup"  >
+<div [formGroup]="formGroup" class="option" >
 	<div>
 		<label for="name" i18n>Short Name</label>
 		<input type="text" formControlName="name" id="name"  />
@@ -13,7 +13,7 @@
 
 	<div>
 		<label for="file"  i18n>Photo</label>
-		<input type="file" id="file" (change)="fileChanged($event.target.files[0])" />
+		<input type="file" id="file" formControlName="file" />
 	</div>
 
 

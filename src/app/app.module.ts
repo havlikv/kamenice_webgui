@@ -21,6 +21,7 @@ import { OptionFormComponent } from './option-form/option-form.component';
 import { OptionsFormComponent } from './options-form/options-form.component';
 import { OverlayComponent } from './overlay/overlay.component';
 import { OverlayService } from "./services/overlay.service";
+import { FileValueAccessor } from './option-form/file-value-accessor';
 
 
 registerLocaleData(localeCs, 'cs');
@@ -43,7 +44,8 @@ export const translations = require(`raw-loader!../locale/messages.cs.xlf`);
 	OptionComponent,
 	OptionFormComponent,
 	OptionsFormComponent,
-	OverlayComponent
+	OverlayComponent,
+	FileValueAccessor
   ],
   imports: [
 	BrowserModule,
