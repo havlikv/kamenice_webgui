@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 import { Survey } from '../domain/survey';
 import { SurveyService } from '../services/survey.service';
 import { Option } from '../domain/Option';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 
 
@@ -14,22 +16,27 @@ import { Option } from '../domain/Option';
 export class SurveysComponent implements OnInit
 {
 	newSurveyVisible = false;
-	survey: Survey;
-	surveys: Survey[] = [];
 
+	formGroup: FormGroup;
+
+	surveys: Survey[] = [];
 
 	constructor(private surveyService: SurveyService, private router: Router)
 	{
-		console.log("Constructing surveys");
-		this.presetNewSurvey();
 	}
 
 
 
 	ngOnInit(): void
 	{
+		this.formGroup = new FormGroup({
+			survey: new FormControl("")
+		});
+		this.presetNewSurvey();
+
 		this.loadSurveys();
 	}
+
 
 
 	private presetNewSurvey()
@@ -42,17 +49,15 @@ export class SurveysComponent implements OnInit
 		const end = new Date( start.getTime() );
 		end.setMonth( end.getMonth() + 2);
 
-		this.survey = {
+		this.formGroup.get("survey").setValue( {
 			id: null,
 			name: "Name1",
 			description: "Descr.1",
 			fromDate: { year: start.getFullYear(), month: start.getMonth() + 1, day: start.getDay() },
 			fromTime: { hour: 0, minute: 0, second: 0 },
 			untilDate: { year: end.getFullYear(), month: end.getMonth() + 1, day: end.getDay() },
-			untilTime: { hour: 23, minute: 59, second: 59 },
-
-			options: []
-		}
+			untilTime: { hour: 23, minute: 59, second: 59 }
+		});
 	}
 
 
@@ -64,10 +69,9 @@ export class SurveysComponent implements OnInit
 
 
 
-	addSurvey(survey: Survey): void
+	addSurvey(): void
 	{
-		console.log(survey);
-		this.surveyService.addSurvey(survey).subscribe(
+		this.surveyService.addSurvey(this.formGroup.value.survey).subscribe(
 			(id) =>  {
 				this.router.navigate([ `/survey/${id}` ]);
 			}
@@ -79,7 +83,7 @@ export class SurveysComponent implements OnInit
 
 	get hasSurveys(): boolean
 	{
-		return this.surveys.length > 0;
+		return this.surveyService.hasSurveys();
 	}
 
 
@@ -97,9 +101,13 @@ export class SurveysComponent implements OnInit
 
 	private loadSurveys()
 	{
+		this.surveys = [];
+
 		this.surveyService.getSurveys().subscribe(
 			(surveys) => {
-				this.surveys = surveys;
+				surveys.forEach( (survey) => {
+					this.surveys.push(survey);
+				});
 			}
 		)
 	}

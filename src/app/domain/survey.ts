@@ -5,7 +5,7 @@ import { Option } from './Option';
 
 export interface Survey
 {
-	id: number;
+	id?: number;
     name: string;
     description: string;
 	fromDate: NgbDateStruct;
@@ -13,5 +13,5 @@ export interface Survey
     untilDate: NgbDateStruct;
 	untilTime: NgbTimeStruct;
 
-	options: Option[];
+	options?: Option[];
 }

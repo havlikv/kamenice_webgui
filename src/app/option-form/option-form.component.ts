@@ -55,9 +55,10 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		let comp = this;
 
 		this.fcns.forEach((x) => {
-			x.valueAccessor.registerOnTouched(function() {
-				comp.touched();
-			});
+			x.valueAccessor.registerOnTouched( function() {
+				comp.touched.apply(comp);
+			 });
+
 
 			if(x.name == "file")
 			{
@@ -91,11 +92,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			return;
 		}
 
-		x.get("name").setValue(null);
-		x.get("description").setValue(null);
-		x.get("file").setValue(null);
-		x.get("imageUrl").setValue(null);
-
+		x.reset();
 	}
 
 
@@ -115,7 +112,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 
 
 
-	touched(): void
+	private touched(): void
 	{
 		this.touchedFns.forEach(f => f());
 	}

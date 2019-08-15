@@ -1,40 +1,39 @@
-<div id="survey-form-component">
+<div [formGroup]=formGroup class="survey">
+	<input type="hidden" formControlName="id" />
+
+
 	<div>
 		<label for="name" i18n>Short Name</label>
-
-		<input type="text" [(ngModel)]="survey.name" name="name" id="name"  (ngModelChange)="change()"
-		 (blur)="touch()" #name="ngModel" required />
+		<input type="text" id="name" formControlName="name" />
 	</div>
 
 
 	<div>
 		<label for="description" i18n>Description</label>
-
-		<textarea [(ngModel)]="survey.description" name="description" id="description" (ngModelChange)="change()"
-		 (blur)="touch()" required></textarea>
+		<textarea id="description" formControlName="description"></textarea>
 	</div>
 
 
 	<div>
 		<label i18n>Date from</label>
+		<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11" formControlName="fromDate" />
+	</div>
 
-		<input type="text" ngbDatepicker [(ngModel)]="survey.fromDate" name="fromDate" #fromDate="ngbDatepicker" (click)="fromDate.toggle()"
-		 size="11" readonly (ngModelChange)="change()" (blur)="touch()" />
 
-		<ngb-timepicker #fromTimePicker #fromTimePickerNgModel="ngModel" [(ngModel)]="survey.fromTime" name="fromTime"
-		 (ngModelChange)="change()" [spinners]="false" appNgbTimePickerValidator></ngb-timepicker>
+	<div>
+		<label i18n>Time from</label>
+		<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
+	</div>
+
+
+	<div>
+		<label i18n>Time until</label>
+		<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11" formControlName="untilDate" />
 	</div>
 
 
 	<div>
 		<label i18n>Date until</label>
-
-		<input type="text" ngbDatepicker [(ngModel)]="survey.untilDate" name="untilDate" #untilDate="ngbDatepicker" (click)="untilDate.toggle()"
-		 size="11" readonly (ngModelChange)="change()" (blur)="touch()" />
-
-		<ngb-timepicker #untilTimePicker [(ngModel)]="survey.untilTime" name="untilTime" (ngModelChange)="change()"
-		 [spinners]="false"></ngb-timepicker>
+		<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
 	</div>
-
-	<div>{{ fromTimePicker.model.hour }}</div>
 </div>

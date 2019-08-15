@@ -2,49 +2,16 @@
 
 <ng-container *ngIf="errorMessage == null; else error">
 
-	<h1>Editing Survey ID: {{ survey.id }}</h1>
+	<h1>Editing Survey ID: {{ surveyId }}</h1>
 
-	<form #surveyForm="ngForm" (ngSubmit)="updateSurvey(surveyForm.value.survey)">
-		<app-survey-form [(ngModel)]="survey" [survey]="survey" name="survey"></app-survey-form>
+	<form [formGroup]="formGroup" (ngSubmit)="updateSurvey()">
+		<app-survey-form   formControlName="survey"></app-survey-form>
 
-		<input type="submit" name="send" value="Edit" [disabled]="! surveyForm.valid" />
+		<input type="submit" name="send" value="Edit" [disabled]="formGroup.invalid" />
 	</form>
 
 
 
-
-
-	<form #optionForm="ngForm" (ngSubmit)="addOption(optionForm.value)">
-		<div>
-			<label for="name"  i18n>Short Name</label>
-			<input type="text" ngModel name="name" id="name" required/>
-		</div>
-
-
-		<div>
-			<label for="description" i18n>Description</label>
-			<textarea ngModel name="description" id="description"></textarea>
-		</div>
-
-
-		<div>
-			<label for="image" i18n>Photo</label>
-			<input type="file" ngModel name="image" id="image" (change)="optionForm.value.image = $event.target.files[0]" />
-		</div>
-
-		<input type="submit" name="send" value="send"[disabled]="! optionForm.valid" />
-
-	</form>
-
-<!--
-	<form>
-		<div *ngFor="let option of survey.options; let i = index" class="border">
-			<app-option-form formControlName [option]="survey.options[i]" ></app-option-form>
-
-			<input type="submit" name="send" value="send" class="btn btn-primary" [disabled]="! optionForm.valid" />
-		</div>
-	</form>
--->
 </ng-container>
 
 

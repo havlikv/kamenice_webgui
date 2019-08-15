@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService } from '../services/survey.service';
 import { Survey } from "../domain/survey";
@@ -17,9 +17,10 @@ import { Option } from '../domain/Option';
 export class SurveyComponent implements OnInit
 {
 	errorMessage: string = null;
-	survey: Survey;
 
+	formGroup: FormGroup;
 
+	surveyId: number;
 
 	constructor(private route: ActivatedRoute, private surveyService: SurveyService, private router: Router)
 	{
@@ -29,6 +30,10 @@ export class SurveyComponent implements OnInit
 
 	ngOnInit()
 	{
+		this.formGroup = new FormGroup({
+			survey: new FormControl("survey")
+		})
+
 
 		this.route.url.subscribe(
 			(urlSegments) => {
@@ -40,9 +45,9 @@ export class SurveyComponent implements OnInit
 				}
 				else
 				{
-					let surveyId = +urlSegments[urlSegments.length - 1].path;
+					this.surveyId = +urlSegments[urlSegments.length - 1].path;
 
-					this.loadSurvey(surveyId);
+					this.loadSurvey(this.surveyId);
 				}
 			}
 		)
@@ -54,7 +59,9 @@ export class SurveyComponent implements OnInit
 	{
 		this.surveyService.getSurveyById(id).subscribe(
 			(survey) => {
-				this.survey = survey;
+				this.formGroup.setValue({
+					"survey": survey
+					});
 			},
 			(x) => {
 				this.errorMessage = "Cannot resolve.";
@@ -65,17 +72,18 @@ export class SurveyComponent implements OnInit
 
 
 
-	updateSurvey(survey: Survey): void
+	updateSurvey(): void
 	{
+		const survey: Survey = this.formGroup.get("survey").value;
 		this.surveyService.updateSurvey(survey).subscribe(null, null,
 			() => {
-				this.loadSurvey(this.survey.id);
+				this.loadSurvey(survey.id);
 			}
 		)
 	}
 
 
-
+/*
 	addOption(option: Option): void
 	{
 		this.surveyService.addOption(this.survey.id, option).subscribe(null, null,
@@ -95,4 +103,7 @@ export class SurveyComponent implements OnInit
 			}
 		)
 	}
+
+
+	*/
 }

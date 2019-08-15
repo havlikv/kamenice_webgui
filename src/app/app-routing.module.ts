@@ -7,8 +7,8 @@ import { OptionsFormComponent } from './options-form/options-form.component';
 
 
 const routes: Routes = [
-//	{ path: "", component: SurveysComponent },
-	{ path: "", component: OptionsFormComponent },
+	{ path: "", component: SurveysComponent },
+//	{ path: "", component: OptionsFormComponent },
 	{ path: 'survey/:id', component: SurveyComponent }
 
 ];

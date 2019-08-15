@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALIDATORS, Validator, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, NgModel } from '@angular/forms';
+import { Component, OnDestroy, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
+import { ControlValueAccessor, NG_VALIDATORS, Validator, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators, FormControlName, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Survey } from "../domain/survey";
 import { NgbTimepicker } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 
 
@@ -21,111 +22,99 @@ import { NgbTimepicker } from '@ng-bootstrap/ng-bootstrap';
 		multi: true
 	}]
 })
-export class SurveyFormComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor, Validator
+export class SurveyFormComponent implements AfterViewInit, OnDestroy, ControlValueAccessor, Validator
 {
 
-	@Input("survey") survey: Survey;
-	private changeFn = null;
-	private touchFn = (x) => {};
+	formGroup: FormGroup;
 
-	@ViewChild("fromTimePicker", {read: ElementRef}) fromTimePicker: ElementRef;
-	@ViewChild("untilTimePicker", {read: ElementRef}) untilTimePicker: ElementRef;
+	@ViewChildren(FormControlName) fcns: QueryList<FormControlName>;
 
-	@ViewChild("fromTimePickerNgModel") fromTimePickerNgModel: NgModel;
+	private changeFns = new Array< (survey: Survey) => {} >();
+	private touchFns = new Array< () => {} >();
 
-	constructor() {
-	}
+	private subscribtions: Subscription[] = [];
 
-	ngOnInit()
+
+
+	constructor()
 	{
-	}
-
-
-	private makeListener(subject)
-	{
-		return function()
-		{
-			subject.touch.apply(subject);
-		}
+		this.formGroup = new FormGroup({
+			"id": new FormControl(""),
+			"name": new FormControl("", Validators.required),
+			"description": new FormControl("", Validators.required),
+			"fromDate": new FormControl("", Validators.required),
+			"fromTime": new FormControl("", Validators.required),
+			"untilDate": new FormControl("", Validators.required),
+			"untilTime": new FormControl("", Validators.required)
+		});
 	}
 
 
 
 	ngAfterViewInit()
 	{
-		const inp = this.fromTimePicker.nativeElement.children[0].children[0].children[0].children[0];
+		let comp = this;
 
-		const f = this.makeListener(this);
-
-		inp.addEventListener("blur", f);
+		this.fcns.forEach( (x) => {
+			x.valueAccessor.registerOnTouched( function() {
+				comp.touched.apply(comp);
+			 } );
+		});
 	}
 
 
 
 	ngOnDestroy(): void
 	{
-
+		this.subscribtions.forEach( (s) => s.unsubscribe() );
 	}
 
 
 	writeValue(survey: Survey): void
 	{
-		this.survey = survey;
+		if(survey)
+		{
+			this.formGroup.setValue(survey);
+
+			return;
+		}
+
+		this.formGroup.reset();
 	}
 
 
 
 	registerOnChange(fn: any): void
 	{
-		this.changeFn = fn;
+		let s = this.formGroup.valueChanges.subscribe(function(args) {
+			fn(args);
+		});
+		this.subscribtions.push(s);
 	}
 
 
 
 	registerOnTouched(fn: any): void
 	{
-		this.touchFn = fn;
+		this.touchFns.push(fn);
 	}
 
 
 
-	change(): void
+	private touched(): void
 	{
-		this.changeFn(this.survey);
+		console.log("Touched.");
+		this.touchFns.forEach( f => f() );
 	}
 
-
-	touch(): void
-	{
-		console.log("TOUCHED.");
-
-		this.touchFn(this.survey);
-	}
 
 
 	validate(control: AbstractControl): ValidationErrors | null
 	{
-		console.log("Validating ..");
-
-		if(this.survey)
+		if(this.formGroup.invalid)
 		{
-			if(! this.survey.name)
-			{
-				return { err: "XXX"} ;
-			}
-
-			if(! this.survey.description)
-			{
-				return { err: "XXX2"} ;
-			}
-
-			if( ! this.fromTimePickerNgModel.valid)
-			{
-				return { err: "Prdel"};
-			}
-
+			return { err: "XXX"};
 		}
-
 
 		return null;
 	}
