@@ -19,13 +19,13 @@
 
 
 	<div *ngFor="let xformGroup of optionFormGroups; let i = index">
-		<form [formGroup]="optionFormGroups[i]" (ngSubmit)="updateOption(i)">
+		<form [formGroup]="xformGroup" (ngSubmit)="updateOption(i)">
 			<app-option-form formControlName="option"></app-option-form>
 
-			<input type="submit" value="Edit" [ngClass]="{'red-border': optionFormGroups[i].dirty }" [disabled]="! ( optionFormGroups[i].dirty && optionFormGroups[i].valid )" />
+			<input type="submit" value="Edit" [ngClass]="{'red-border': xformGroup.dirty }" [disabled]="! ( xformGroup.dirty && xformGroup.valid )" />
 		</form>
 
-		<button (click)="deleteOption(optionFormGroups[i].value.option.id)">Delete</button>
+		<button (click)="deleteOption(xformGroup.value.option.id)">Delete</button>
 	</div>
 
 
