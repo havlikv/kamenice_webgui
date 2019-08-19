@@ -22,7 +22,9 @@
 
 	<div>
 		<label>Čas od</label>
-		<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
+		<div class="inlineBlock">
+			<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
+		</div>
 	</div>
 
 
@@ -34,6 +36,8 @@
 
 	<div>
 		<label>Čas do</label>
-		<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
+		<div class="inlineBlock">
+			<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
+		</div>
 	</div>
 </div>
