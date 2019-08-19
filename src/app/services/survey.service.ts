@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Survey } from '../domain/survey';
 import { Observable, of, throwError }  from "rxjs";
 import { Option } from '../domain/Option';
-import { I18n } from "@ngx-translate/i18n-polyfill";
 
 
 
@@ -16,7 +15,7 @@ export class SurveyService
 
 	private optionSeq = 0;
 
-	constructor(private i18n: I18n) { }
+	constructor() { }
 
 
 
@@ -57,7 +56,7 @@ export class SurveyService
 
 		if(index < 0)
 		{
-			throwError(this.i18n("Cannot update."));
+			throwError("Cannot update.");
 		}
 
 		Object.assign(this.surveys[index], SurveyService.deepCopyNoOption(inSurvey));
@@ -75,7 +74,7 @@ export class SurveyService
 
 		if(index < 0)
 		{
-			throwError(this.i18n("Cannot delete."));
+			throwError("Cannot delete.");
 		}
 
 		this.surveys.splice(index, 1);
@@ -113,7 +112,7 @@ export class SurveyService
 		const index = this.findSurveyIndexById(id);
 		if(index < 0)
 		{
-			return throwError(this.i18n("Cannot get."));
+			return throwError("Cannot get.");
 		}
 		const survey = this.surveys[index];
 
@@ -143,7 +142,7 @@ export class SurveyService
 		const index = this.findSurveyIndexById(surveyId);
 		if(index < 0)
 		{
-			throwError(this.i18n("Cannot add."));
+			throwError("Cannot add.");
 		}
 		const survey = this.surveys[index];
 
@@ -178,7 +177,7 @@ export class SurveyService
 		const surveyIndex = this.findSurveyIndexById(surveyId);
 		if(surveyIndex < 0)
 		{
-			throwError(this.i18n("Cannot update."));
+			throwError("Cannot update.");
 		}
 		const survey = this.surveys[surveyIndex];
 
@@ -186,7 +185,7 @@ export class SurveyService
 
 		if(optionIndex < 0)
 		{
-			return throwError(this.i18n("Cannot update."));
+			return throwError("Cannot update.");
 		}
 
 		this.purgeOption(survey, optionIndex);
@@ -208,7 +207,7 @@ export class SurveyService
 
 		if(surveyIndex < 0)
 		{
-			return throwError(this.i18n("Cannot delete."));
+			return throwError("Cannot delete.");
 		}
 
 		const survey = this.surveys[surveyIndex];
@@ -217,7 +216,7 @@ export class SurveyService
 
 		if(optionIndex < 0)
 		{
-			return throwError(this.i18n("Cannot delete."));
+			return throwError("Cannot delete.");
 		}
 
 		this.purgeOption(survey, optionIndex);

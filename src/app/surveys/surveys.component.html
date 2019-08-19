@@ -1,5 +1,5 @@
 <div>
-	<button i18n (click)="toggleNewSurvey()" >New Survey</button>
+	<button (click)="toggleNewSurvey()" >New Survey</button>
 </div>
 
 <form *ngIf="newSurveyVisible" [formGroup]="formGroup"  (ngSubmit)="createSurvey()">
@@ -13,12 +13,12 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<th scope="col" i18n>Id</th>
-				<th scope="col" i18n>Name</th>
-				<th scope="col" i18n>Description</th>
-				<th scope="col" i18n>fromTimeStamp</th>
-				<th scope="col" i18n>untilTimeStamp</th>
-				<th scope="col" i18n>Delete</th>
+				<th scope="col">Id</th>
+				<th scope="col">Name</th>
+				<th scope="col">Description</th>
+				<th scope="col">fromTimeStamp</th>
+				<th scope="col">untilTimeStamp</th>
+				<th scope="col">Delete</th>
 			</tr>
 		</thead>
 		<tr *ngFor="let survey of surveys">
@@ -30,12 +30,12 @@
 			<td>{{survey.fromDate.year}}-{{survey.fromDate.month}}-{{survey.fromDate.day}} {{survey.fromTime.hour}}:{{survey.fromTime.minute}}:{{survey.fromTime.second}}</td>
 			<td>{{survey.untilDate.year}}-{{survey.untilDate.month}}-{{survey.untilDate.day}} {{survey.untilTime.hour}}:{{survey.untilTime.minute}}:{{survey.untilTime.second}}</td>
 			<td>
-				<button (click)="deleteSurvey(survey.id)" i18n>Delete</button>
+				<button (click)="deleteSurvey(survey.id)" >Delete</button>
 			</td>
 		</tr>
 	</table>
 </ng-container>
 
 <ng-template #noSurveys>
-	<h1 i18n>No surveys.</h1>
+	<h1>No surveys.</h1>
 </ng-template>

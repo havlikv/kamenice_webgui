@@ -3,37 +3,37 @@
 
 
 	<div>
-		<label for="name" i18n>Short Name</label>
+		<label for="name">Short Name</label>
 		<input type="text" id="name" formControlName="name" />
 	</div>
 
 
 	<div>
-		<label for="description" i18n>Description</label>
+		<label for="description">Description</label>
 		<textarea id="description" formControlName="description"></textarea>
 	</div>
 
 
 	<div>
-		<label i18n>Date from</label>
+		<label>Date from</label>
 		<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11" formControlName="fromDate" />
 	</div>
 
 
 	<div>
-		<label i18n>Time from</label>
+		<label>Time from</label>
 		<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
 	</div>
 
 
 	<div>
-		<label i18n>Date until</label>
+		<label>Date until</label>
 		<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11" formControlName="untilDate" />
 	</div>
 
 
 	<div>
-		<label i18n>Time until</label>
+		<label>Time until</label>
 		<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
 	</div>
 </div>
