@@ -88,7 +88,9 @@ export class SurveyComponent implements OnInit
 				{
 					this.setupOptions(options);
 				},
-				(x) =>  {throwError("Cannot load.");}
+				(x) =>  {
+					this.errorMessage = x;
+				}
 			);
 	}
 
