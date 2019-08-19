@@ -1,8 +1,8 @@
-<a routerLink="/">Přehled</a>
+<a routerLink="/"><h3>Přehled hlasování</h3></a>
 
 <ng-container *ngIf="errorMessage == null; else error">
 
-	<h1>Editujete hlasování ID: {{ surveyId }}</h1>
+	<h1>Upravujete hlasování ID: {{ surveyId }}</h1>
 
 	<form [formGroup]="surveyFormGroup" (ngSubmit)="updateSurvey()">
 		<app-survey-form   formControlName="survey"></app-survey-form>
