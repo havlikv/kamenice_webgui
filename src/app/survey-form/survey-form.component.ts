@@ -1,8 +1,9 @@
 import { Component, OnDestroy, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, Validator, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators, FormControlName, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Survey } from "../domain/survey";
-import { NgbTimepicker } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
+import { NgbTimepicker, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription, from } from 'rxjs';
+import { Utils } from "../utils/utils";
 
 
 
@@ -46,7 +47,7 @@ export class SurveyFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			"fromTime": new FormControl("", Validators.required),
 			"untilDate": new FormControl("", Validators.required),
 			"untilTime": new FormControl("", Validators.required)
-		});
+		}, SurveyFormComponent.timestampsSame);
 	}
 
 
@@ -118,4 +119,37 @@ export class SurveyFormComponent implements AfterViewInit, OnDestroy, ControlVal
 
 		return null;
 	}
+
+
+
+	static timestampsSame(control: AbstractControl): ValidationErrors | null
+	{
+		let x = control as FormGroup;
+
+		const fromDateFc = x.get("fromDate");
+		const untilDateFc = x.get("untilDate");
+
+		const fromDate: NgbDateStruct = fromDateFc.value;
+		const untilDate: NgbDateStruct = untilDateFc.value;
+
+		if(!!fromDate && !!untilDate)
+		{
+			fromDateFc.setErrors(null);
+			untilDateFc.setErrors(null);
+
+			const x = Utils.compareNgbStructs(fromDate, untilDate);
+			if(x >= 0)
+			{
+				const errors = { err: "XXX"};
+
+				fromDateFc.setErrors(errors);
+				untilDateFc.setErrors(errors);
+
+				return errors;
+			}
+		}
+
+		return null;
+	}
 }
+
