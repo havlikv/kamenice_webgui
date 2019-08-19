@@ -53,9 +53,9 @@ export class SurveysComponent implements OnInit
 			id: null,
 			name: "Name1",
 			description: "Descr.1",
-			fromDate: { year: start.getFullYear(), month: start.getMonth() + 1, day: start.getDay() },
+			fromDate: { year: start.getFullYear(), month: start.getMonth() + 1, day: start.getDate() },
 			fromTime: { hour: 0, minute: 0, second: 0 },
-			untilDate: { year: end.getFullYear(), month: end.getMonth() + 1, day: end.getDay() },
+			untilDate: { year: end.getFullYear(), month: end.getMonth() + 1, day: end.getDate() },
 			untilTime: { hour: 23, minute: 59, second: 59 }
 		});
 	}
