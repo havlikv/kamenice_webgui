@@ -2,7 +2,7 @@
 	<button i18n (click)="toggleNewSurvey()" >New Survey</button>
 </div>
 
-<form *ngIf="newSurveyVisible" [formGroup]="formGroup"  (ngSubmit)="addSurvey()">
+<form *ngIf="newSurveyVisible" [formGroup]="formGroup"  (ngSubmit)="createSurvey()">
 	<app-survey-form formControlName="survey" ></app-survey-form>
 
 	<input type="submit" name="new" value="New" [disabled]="formGroup.invalid" />
@@ -27,8 +27,8 @@
 			</td>
 			<td>{{survey.name}}</td>
 			<td>{{survey.description}}</td>
-			<td>{{survey.fromDate.year}}-{{survey.fromDate.month}}-{{survey.fromDate.day}} {{survey.fromTime.hour}}-{{survey.fromTime.minute}}-{{survey.fromTime.second}}</td>
-			<td>{{survey.untilDate.year}}-{{survey.untilDate.month}}-{{survey.untilDate.day}} {{survey.untilTime.hour}}-{{survey.untilTime.minute}}-{{survey.untilTime.second}}</td>
+			<td>{{survey.fromDate.year}}-{{survey.fromDate.month}}-{{survey.fromDate.day}} {{survey.fromTime.hour}}:{{survey.fromTime.minute}}:{{survey.fromTime.second}}</td>
+			<td>{{survey.untilDate.year}}-{{survey.untilDate.month}}-{{survey.untilDate.day}} {{survey.untilTime.hour}}:{{survey.untilTime.minute}}:{{survey.untilTime.second}}</td>
 			<td>
 				<button (click)="deleteSurvey(survey.id)" i18n>Delete</button>
 			</td>

@@ -34,6 +34,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	constructor(private overlayService: OverlayService)
 	{
 		this.formGroup = new FormGroup({
+			id: new FormControl(""),
 			name: new FormControl("", Validators.required),
 			description: new FormControl("", Validators.required),
 			file: new FormControl("", Validators.required),
@@ -77,7 +78,6 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	ngOnDestroy(): void
 	{
 		this.subscribtions.forEach( (s) => { s.unsubscribe(); });
-		URL.revokeObjectURL(this.formGroup.get("imageUrl").value);
 	}
 
 

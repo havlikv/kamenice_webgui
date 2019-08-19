@@ -69,9 +69,9 @@ export class SurveysComponent implements OnInit
 
 
 
-	addSurvey(): void
+	createSurvey(): void
 	{
-		this.surveyService.addSurvey(this.formGroup.value.survey).subscribe(
+		this.surveyService.createSurvey(this.formGroup.value.survey).subscribe(
 			(id) =>  {
 				this.router.navigate([ `/survey/${id}` ]);
 			}

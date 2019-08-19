@@ -19,11 +19,26 @@ export class SurveyService
 	constructor(private i18n: I18n) { }
 
 
-	addSurvey(inSurvey: Survey): Observable<number>
+
+	getSurveys(): Observable<Survey[]>
 	{
-		console.log(inSurvey);
+		let surveys: Survey[] = [];
+		for(const survey of this.surveys)
+		{
+			surveys.push(SurveyService.deepCopyNoOption(survey));
+		}
+
+		return of(surveys);
+	}
+
+
+
+	createSurvey(inSurvey: Survey): Observable<number>
+	{
+		SurveyService.logObject("createSurvey: ", inSurvey);
 
 		let survey: Survey = SurveyService.deepCopyNoOption(inSurvey);
+		survey.options = [];
 
 		survey.id = this.surveySeq;
 		this.surveySeq++;
@@ -36,6 +51,8 @@ export class SurveyService
 
 	updateSurvey(inSurvey: Survey): Observable<void>
 	{
+		SurveyService.logObject("updateSurvey: ", inSurvey);
+
 		const index = this.findSurveyIndexById(inSurvey.id);
 
 		if(index < 0)
@@ -52,6 +69,8 @@ export class SurveyService
 
 	deleteSurvey(id: number): Observable<void>
 	{
+		SurveyService.logObject("deleteSurvey: ", id);
+
 		const index = this.findSurveyIndexById(id);
 
 		if(index < 0)
@@ -82,19 +101,6 @@ export class SurveyService
 
 
 
-	getSurveys(): Observable<Survey[]>
-	{
-		let surveys: Survey[] = [];
-		for(const survey of this.surveys)
-		{
-			surveys.push(SurveyService.deepCopyNoOption(survey));
-		}
-
-		return of(surveys);
-	}
-
-
-
 	hasSurveys(): boolean
 	{
 		return ( this.surveys.length > 0 );
@@ -116,8 +122,24 @@ export class SurveyService
 
 
 
-	addOption(surveyId: number, option: Option): Observable<void>
+	getOptions(surveyId: number): Observable<Option[]>
 	{
+		const index = this.findSurveyIndexById(surveyId);
+
+		if(index < 0)
+		{
+			return throwError("Cannot find.");
+		}
+
+		return of(this.surveys[index].options);
+	}
+
+
+
+	createOption(surveyId: number, option: Option): Observable<void>
+	{
+		SurveyService.logObject("createOption: ", option);
+
 		const index = this.findSurveyIndexById(surveyId);
 		if(index < 0)
 		{
@@ -125,7 +147,10 @@ export class SurveyService
 		}
 		const survey = this.surveys[index];
 
-		option.imageUrl = window.URL.createObjectURL(option.file);
+		option.id = this.optionSeq;
+		this.optionSeq++;
+
+		SurveyService.setupFileAndImageUrl(option);
 
 		survey.options.push( SurveyService.deepCopyNoOption(option) );
 
@@ -134,8 +159,22 @@ export class SurveyService
 
 
 
+	private static setupFileAndImageUrl(option)
+	{
+		if(option.imageUrl)
+		{
+			window.URL.revokeObjectURL(option.imageUrl);
+			option.imageUrl = window.URL.createObjectURL(option.file);
+		}
+		option.file = null;
+	}
+
+
+
 	updateOption(surveyId: number, option: Option): Observable<void>
 	{
+		SurveyService.logObject("updateOption: ", option);
+
 		const surveyIndex = this.findSurveyIndexById(surveyId);
 		if(surveyIndex < 0)
 		{
@@ -152,7 +191,7 @@ export class SurveyService
 
 		this.purgeOption(survey, optionIndex);
 
-		option.imageUrl = window.URL.createObjectURL(option.file);
+		SurveyService.setupFileAndImageUrl(option);
 
 		survey.options.splice(optionIndex, 0, option);
 
@@ -163,6 +202,8 @@ export class SurveyService
 
 	deleteOption(surveyId: number, optionId: number): Observable<void>
 	{
+		SurveyService.logObject("deleteOption: ", optionId);
+
 		const surveyIndex = this.findSurveyIndexById(surveyId);
 
 		if(surveyIndex < 0)
@@ -180,6 +221,8 @@ export class SurveyService
 		}
 
 		this.purgeOption(survey, optionIndex);
+
+		return of();
 	}
 
 
@@ -217,5 +260,13 @@ export class SurveyService
 		delete x["options"];
 
 		return x;
+	}
+
+
+
+	static logObject(message, o): void
+	{
+		console.log(message);
+		console.log(o);
 	}
 }
