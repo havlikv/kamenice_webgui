@@ -47,7 +47,7 @@ export class SurveyFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			"fromTime": new FormControl("", Validators.required),
 			"untilDate": new FormControl("", Validators.required),
 			"untilTime": new FormControl("", Validators.required)
-		}, SurveyFormComponent.timestampsSame);
+		}, SurveyFormComponent.datesSame);
 	}
 
 
@@ -122,7 +122,7 @@ export class SurveyFormComponent implements AfterViewInit, OnDestroy, ControlVal
 
 
 
-	static timestampsSame(control: AbstractControl): ValidationErrors | null
+	static datesSame(control: AbstractControl): ValidationErrors | null
 	{
 		let x = control as FormGroup;
 
