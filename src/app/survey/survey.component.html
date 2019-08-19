@@ -7,7 +7,7 @@
 	<form [formGroup]="surveyFormGroup" (ngSubmit)="updateSurvey()">
 		<app-survey-form   formControlName="survey"></app-survey-form>
 
-		<input type="submit" name="send" value="Edit" [disabled]="surveyFormGroup.invalid" />
+		<input type="submit" name="send" value="Edit" [disabled]="! ( surveyFormGroup.dirty && surveyFormGroup.valid )" />
 	</form>
 
 
