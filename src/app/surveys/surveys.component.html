@@ -1,11 +1,11 @@
 <div>
-	<button (click)="toggleNewSurvey()" >New Survey</button>
+	<button (click)="toggleNewSurvey()" >Nové hlasováni</button>
 </div>
 
 <form *ngIf="newSurveyVisible" [formGroup]="formGroup"  (ngSubmit)="createSurvey()">
 	<app-survey-form formControlName="survey" ></app-survey-form>
 
-	<input type="submit" name="new" value="New" [disabled]="formGroup.invalid" />
+	<input type="submit" name="new" value="Uložit" [disabled]="formGroup.invalid" />
 </form>
 
 <ng-container *ngIf="hasSurveys ; else noSurveys">
@@ -14,11 +14,11 @@
 		<thead>
 			<tr>
 				<th scope="col">Id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Description</th>
-				<th scope="col">fromTimeStamp</th>
-				<th scope="col">untilTimeStamp</th>
-				<th scope="col">Delete</th>
+				<th scope="col">Krátce</th>
+				<th scope="col">Popis</th>
+				<th scope="col">Datum a čas od</th>
+				<th scope="col">Datum a čas do</th>
+				<th scope="col">Smazat</th>
 			</tr>
 		</thead>
 		<tr *ngFor="let survey of surveys">
@@ -30,12 +30,12 @@
 			<td>{{survey.fromDate.year}}-{{survey.fromDate.month}}-{{survey.fromDate.day}} {{survey.fromTime.hour}}:{{survey.fromTime.minute}}:{{survey.fromTime.second}}</td>
 			<td>{{survey.untilDate.year}}-{{survey.untilDate.month}}-{{survey.untilDate.day}} {{survey.untilTime.hour}}:{{survey.untilTime.minute}}:{{survey.untilTime.second}}</td>
 			<td>
-				<button (click)="deleteSurvey(survey.id)" >Delete</button>
+				<button (click)="deleteSurvey(survey.id)" >Smazat</button>
 			</td>
 		</tr>
 	</table>
 </ng-container>
 
 <ng-template #noSurveys>
-	<h1>No surveys.</h1>
+	<h1>Žádná hlasování.</h1>
 </ng-template>

@@ -3,37 +3,37 @@
 
 
 	<div>
-		<label for="name">Short Name</label>
+		<label for="name">Krátce</label>
 		<input type="text" id="name" formControlName="name" />
 	</div>
 
 
 	<div>
-		<label for="description">Description</label>
+		<label for="description">Popis</label>
 		<textarea id="description" formControlName="description"></textarea>
 	</div>
 
 
 	<div>
-		<label>Date from</label>
+		<label>Datum od</label>
 		<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11" formControlName="fromDate" />
 	</div>
 
 
 	<div>
-		<label>Time from</label>
+		<label>Čas od</label>
 		<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
 	</div>
 
 
 	<div>
-		<label>Date until</label>
+		<label>Datum do</label>
 		<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11" formControlName="untilDate" />
 	</div>
 
 
 	<div>
-		<label>Time until</label>
+		<label>Čas do</label>
 		<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
 	</div>
 </div>

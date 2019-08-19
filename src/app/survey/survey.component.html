@@ -1,31 +1,33 @@
-<a routerLink="/">Top</a>
+<a routerLink="/">Přehled</a>
 
 <ng-container *ngIf="errorMessage == null; else error">
 
-	<h1>Editing Survey ID: {{ surveyId }}</h1>
+	<h1>Editujete hlasování ID: {{ surveyId }}</h1>
 
 	<form [formGroup]="surveyFormGroup" (ngSubmit)="updateSurvey()">
 		<app-survey-form   formControlName="survey"></app-survey-form>
 
-		<input type="submit" name="send" value="Edit" [disabled]="! ( surveyFormGroup.dirty && surveyFormGroup.valid )" />
+		<input type="submit" name="send" value="Upravit" [disabled]="! ( surveyFormGroup.dirty && surveyFormGroup.valid )" />
 	</form>
 
 
 	<form [formGroup]="optionFormGroup" (ngSubmit)="createOption()">
+			<h3>Zde zadejte novou volbu!</h3>
 			<app-option-form formControlName="option"></app-option-form>
 
-			<input type="submit" value="New" [disabled]="optionFormGroup.invalid" />
+			<input type="submit" value="Uložit" [disabled]="optionFormGroup.invalid" />
 	</form>
 
 
+	<h3 *ngIf="optionFormGroups.length > 0">Uložené volby</h3>
 	<div *ngFor="let xformGroup of optionFormGroups; let i = index">
 		<form [formGroup]="xformGroup" (ngSubmit)="updateOption(i)">
 			<app-option-form formControlName="option"></app-option-form>
 
-			<input type="submit" value="Edit" [ngClass]="{'red-border': xformGroup.dirty }" [disabled]="! ( xformGroup.dirty && xformGroup.valid )" />
+			<input type="submit" value="Upravit" [ngClass]="{'red-border': xformGroup.dirty }" [disabled]="! ( xformGroup.dirty && xformGroup.valid )" />
 		</form>
 
-		<button (click)="deleteOption(xformGroup.value.option.id)">Delete</button>
+		<button (click)="deleteOption(xformGroup.value.option.id)">Smazat</button>
 	</div>
 
 
