@@ -104,6 +104,8 @@ export class SurveyComponent implements OnInit
 				this.surveyFormGroup.setValue({
 					"survey": survey
 				});
+
+				this.surveyFormGroup.markAsPristine();
 			},
 			(x) =>
 			{
@@ -154,8 +156,6 @@ export class SurveyComponent implements OnInit
 		this.surveyService.updateOption(this.surveyId, this.optionFormGroups[i].value.option).subscribe(
 			null, null,
 			() => {
-				this.optionFormGroup.reset();
-
 				this.loadOptions(this.surveyId);
 			}
 		);
