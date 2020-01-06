@@ -5,7 +5,7 @@ import { SurveyService } from '../services/survey.service';
 import { Survey } from "../domain/survey";
 import { Observable, throwError } from 'rxjs';
 import { Router } from "@angular/router";
-import { Option } from '../domain/Option';
+import { Option } from '../domain/option';
 import { switchMap } from 'rxjs/operators';
 
 

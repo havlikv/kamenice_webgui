@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Survey } from '../domain/survey';
 import { Observable, of, throwError }  from "rxjs";
-import { Option } from '../domain/Option';
+import { Option } from '../domain/option';
 
 
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Survey } from '../domain/survey';
 import { SurveyService } from '../services/survey.service';
-import { Option } from '../domain/Option';
+import { Option } from '../domain/option';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 

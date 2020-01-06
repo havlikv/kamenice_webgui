@@ -1,5 +1,5 @@
 import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { Option } from './Option';
+import { Option } from './option';
 
 
 

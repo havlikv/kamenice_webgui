@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, Input, ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator } from "@angular/forms";
 import { AbstractControl, ValidationErrors } from "@angular/forms";
-import { Option } from '../domain/Option';
+import { Option } from '../domain/option';
 import { Subscription } from "rxjs";
 import { OverlayService } from '../services/overlay.service';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Option } from '../domain/Option';
+import { Option } from '../domain/option';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 
 
