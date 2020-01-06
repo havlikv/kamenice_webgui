@@ -23,32 +23,32 @@ import { FileValueAccessor } from './option-form/file-value-accessor';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SortableDirective,
-    SurveyComponent,
-    SurveyFormComponent,
-    SurveysComponent,
-	SafePipe,
-	NgbTimePickerValidator,
-	OptionComponent,
-	OptionFormComponent,
-	OptionsFormComponent,
-	OverlayComponent,
-	FileValueAccessor
-  ],
-  imports: [
-	BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-	FormsModule,
-	ReactiveFormsModule
-  ],
-  providers: [
-	SurveyService,
-	OverlayService
+	declarations: [
+		AppComponent,
+		SortableDirective,
+		SurveyComponent,
+		SurveyFormComponent,
+		SurveysComponent,
+		SafePipe,
+		NgbTimePickerValidator,
+		OptionComponent,
+		OptionFormComponent,
+		OptionsFormComponent,
+		OverlayComponent,
+		FileValueAccessor
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		NgbModule,
+		FormsModule,
+		ReactiveFormsModule
+	],
+	providers: [
+		SurveyService,
+		OverlayService
 
-  ],
-  bootstrap: [AppComponent]
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
