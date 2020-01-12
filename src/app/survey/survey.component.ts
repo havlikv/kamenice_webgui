@@ -7,6 +7,8 @@ import { Observable, throwError } from 'rxjs';
 import { Router } from "@angular/router";
 import { Option } from '../domain/option';
 import { switchMap } from 'rxjs/operators';
+import { Utils } from '../utils/utils';
+
 
 
 @Component({
@@ -133,7 +135,6 @@ export class SurveyComponent implements OnInit
 	createOption(): void
 	{
 		let option = this.optionFormGroup.value.option;
-		option.imageUrl = window.URL.createObjectURL(option.file);
 
 		this.surveyService.createOption(this.surveyId, this.optionFormGroup.value.option).subscribe(
 			null, null,
@@ -151,7 +152,6 @@ export class SurveyComponent implements OnInit
 	updateOption(i: number): void
 	{
 		let option: Option = this.optionFormGroups[i].value.option;
-		option.imageUrl = window.URL.createObjectURL(option.file);
 
 		this.surveyService.updateOption(this.surveyId, this.optionFormGroups[i].value.option).subscribe(
 			null, null,

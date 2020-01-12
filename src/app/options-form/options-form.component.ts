@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Option } from '../domain/option';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { Utils } from '../utils/utils';
 
 
 
@@ -41,29 +42,13 @@ export class OptionsFormComponent implements OnInit
 		x.setValue(this.newOption);
 	}
 
-
-
-	new(): void
-	{
-		let option = this.formGroup.value.option;
-		option.imageUrl = window.URL.createObjectURL(option.file);
-
-		let x = new FormGroup({
-			option: new FormControl("")
-		});
-		x.get("option").setValue(option);
-		this.formGroups.push(x);
-
-		this.formGroup.reset();
-	}
-
-
+	
 
 	edit(i: number): void
 	{
 		let option: Option = this.formGroups[i].value.option;
 
-		option.imageUrl =  window.URL.createObjectURL(option.file);
+		Utils.adaptForDb(option);
 
 		this.formGroups[i].get("option").setValue(option);
 

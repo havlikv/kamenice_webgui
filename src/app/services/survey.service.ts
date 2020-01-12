@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Survey } from '../domain/survey';
 import { Observable, of, throwError }  from "rxjs";
 import { Option } from '../domain/option';
+import { Utils } from '../utils/utils';
 
 
 
@@ -149,23 +150,11 @@ export class SurveyService
 		option.id = this.optionSeq;
 		this.optionSeq++;
 
-		SurveyService.setupFileAndImageUrl(option);
+		Utils.adaptForDb(option);
 
 		survey.options.push( SurveyService.deepCopyNoOption(option) );
 
 		return of();
-	}
-
-
-
-	private static setupFileAndImageUrl(option)
-	{
-		if(option.imageUrl)
-		{
-			window.URL.revokeObjectURL(option.imageUrl);
-			option.imageUrl = window.URL.createObjectURL(option.file);
-		}
-		option.file = null;
 	}
 
 
@@ -190,7 +179,7 @@ export class SurveyService
 
 		this.purgeOption(survey, optionIndex);
 
-		SurveyService.setupFileAndImageUrl(option);
+		Utils.adaptForDb(option);
 
 		survey.options.splice(optionIndex, 0, option);
 

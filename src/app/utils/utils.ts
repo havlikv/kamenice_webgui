@@ -4,6 +4,13 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export abstract class Utils
 {
+	public static adaptForDb(option)
+	{
+		option.file = null;
+	}
+
+
+
 	public static compareNgbStructs(fromDate: NgbDateStruct, untilDate: NgbDateStruct): number
 	{
 		if(fromDate.year < untilDate.year)
