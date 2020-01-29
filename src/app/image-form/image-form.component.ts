@@ -43,7 +43,7 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 	constructor(private overlayService: OverlayService)
 	{
 		this.formGroup = new FormGroup({
-			file: new FormControl("", isTruthy),
+			file: new FormControl(""),
 			imageUrl: new FormControl("")
 		});
 	}

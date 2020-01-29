@@ -7,6 +7,34 @@ import { OverlayService } from '../services/overlay.service';
 import { Image } from "../domain/image";
 
 
+
+function allImagesValid(images: FormArray): any
+{
+	let valid = true;
+	for(let i = 0; i < images.length; i++)
+	{
+		let image = images.controls[i];
+		if(!image.value.file)
+		{
+			valid = false;
+			break;
+		}
+	}
+
+	if(!valid)
+	{
+		return {
+			err: "XXX"
+		}
+	}
+	else
+	{
+		return null;
+	}
+}
+
+
+
 @Component({
 	selector: 'app-option-form',
 	templateUrl: './option-form.component.html',
@@ -37,7 +65,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			id: new FormControl(""),
 			name: new FormControl("", Validators.required),
 			description: new FormControl("", Validators.required),
-			images: new FormArray([])
+			images: new FormArray([], allImagesValid)
 		})
 	}
 
@@ -72,6 +100,15 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		});
 
 		images.push(x);
+	}
+
+
+
+	deleteImage(i: number): void
+	{
+		let images: FormArray = this.formGroup.get("images") as FormArray;
+
+		images.removeAt(i);
 	}
 
 
