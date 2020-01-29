@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ControlValueAccessor, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService } from '../services/survey.service';
 import { Survey } from "../domain/survey";
@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { Option } from '../domain/option';
 import { switchMap } from 'rxjs/operators';
 import { Utils } from '../utils/utils';
+import { OptionFormComponent } from '../option-form/option-form.component';
 
 
 
@@ -28,13 +29,14 @@ export class SurveyComponent implements OnInit
 		id: null,
 		name: "Option1",
 		description: "Descr.",
-		imageUrl: null,
-		file: null,
+		images: []
 	};
 
 
 	optionFormGroup: FormGroup;
 
+	@ViewChild(OptionFormComponent)
+	optionFormGroupComp: OptionFormComponent;
 
 	optionFormGroups: FormGroup[] = [];
 
@@ -139,7 +141,7 @@ export class SurveyComponent implements OnInit
 		this.surveyService.createOption(this.surveyId, this.optionFormGroup.value.option).subscribe(
 			null, null,
 			() => {
-				this.optionFormGroup.reset();
+				this.optionFormGroupComp.reset();
 
 				this.loadOptions(this.surveyId);
 			}

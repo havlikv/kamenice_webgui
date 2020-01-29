@@ -1,10 +1,10 @@
-import { Component, AfterViewInit, ViewChild, Input, ViewChildren, QueryList, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators, ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator } from "@angular/forms";
+import { Component, AfterViewInit, ViewChildren, QueryList, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators, ControlValueAccessor, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, FormArray } from "@angular/forms";
 import { AbstractControl, ValidationErrors } from "@angular/forms";
 import { Option } from '../domain/option';
 import { Subscription } from "rxjs";
 import { OverlayService } from '../services/overlay.service';
-
+import { Image } from "../domain/image";
 
 
 @Component({
@@ -37,18 +37,42 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			id: new FormControl(""),
 			name: new FormControl("", Validators.required),
 			description: new FormControl("", Validators.required),
-			file: new FormControl("", Validators.required),
-			imageUrl: new FormControl("")
+			images: new FormArray([])
 		})
 	}
 
 
 
-	get imageUrl(): string
+	reset(): void
 	{
-		return this.formGroup.get("imageUrl").value;
+		let images: FormArray = (this.formGroup.get("images") as FormArray);
+		while (images.length !== 0)
+		{
+			images.removeAt(0)
+		}
+		this.formGroup.reset();
 	}
 
+
+
+	get ximages(): AbstractControl[]
+	{
+		return (this.formGroup.get("images") as FormArray).controls;
+	}
+
+
+
+	addImage(): void
+	{
+		let images: FormArray = this.formGroup.get("images") as FormArray;
+
+		let x = new FormControl({
+			file: null,
+			imageUrl: null
+		});
+
+		images.push(x);
+	}
 
 
 	ngAfterViewInit()
@@ -59,17 +83,6 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			x.valueAccessor.registerOnTouched( function() {
 				comp.touched.apply(comp);
 			 });
-
-
-			if(x.name == "file")
-			{
-				x.valueAccessor.registerOnChange(function() {
-					let x: FormGroup = comp.formGroup;
-					let file: File = x.get("file").value;
-					let imageUrl = window.URL.createObjectURL(file);
-					x.get("imageUrl").setValue(imageUrl);
-				})
-			}
 		} );
 	}
 
@@ -87,7 +100,17 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		let x = this.formGroup;
 		if(option)
 		{
-			x.setValue(option);
+			let imagesFormArray = x.get("images") as FormArray;
+			for(let image of option.images)
+			{
+				let imageFormControl = new FormControl(image);
+				imagesFormArray.push(imageFormControl);
+			}
+			x.get("id").setValue(option.id);
+			x.get("name").setValue(option.name);
+			x.get("description").setValue(option.description);
+
+			//x.setValue(option);
 
 			return;
 		}
@@ -129,14 +152,5 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		}
 
 		return null;
-	}
-
-
-
-	doOverlay(): void
-	{
-		console.log(this.imageUrl);
-
-		this.overlayService.showImage(this.imageUrl);
 	}
 }

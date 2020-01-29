@@ -16,8 +16,7 @@ export class OptionsFormComponent implements OnInit
 	newOption: Option = {
 		name: "Option1",
 		description: "Descr.",
-		imageUrl: null,
-		file: null,
+		images: []
 	};
 
 

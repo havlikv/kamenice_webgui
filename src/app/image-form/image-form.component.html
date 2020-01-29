@@ -1,0 +1,11 @@
+<div [formGroup]="formGroup">
+	<div>
+		<label for="file">Foto</label>
+		<input type="file" id="file" formControlName="file" />
+	</div>
+
+
+	<figure *ngIf="!!imageUrl">
+		<img [src]="imageUrl | safe"  width="auto" height="100" (click)="doOverlay()" class="pointer" />
+	</figure>
+</div>

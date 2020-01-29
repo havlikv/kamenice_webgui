@@ -1,10 +1,10 @@
-<div [formGroup]="formGroup" class="option" >
+<div [formGroup]="formGroup" class="option">
 	<input type="hidden" formControlName="id" />
 
 
 	<div>
 		<label for="name">Krátce</label>
-		<input type="text" formControlName="name" id="name"  />
+		<input type="text" formControlName="name" id="name" />
 	</div>
 
 
@@ -14,13 +14,10 @@
 	</div>
 
 
-	<div>
-		<label for="file">Foto</label>
-		<input type="file" id="file" formControlName="file" />
+	<label>Images</label>
+	<div formArrayName="images" *ngFor="let ximage of ximages; let i=index">
+		<app-image-form [formControl]="ximages[i]"></app-image-form>
 	</div>
 
-
-	<figure *ngIf="!!imageUrl">
-		<img [src]="imageUrl | safe"  width="auto" height="100" (click)="doOverlay()" class="pointer" />
-	</figure>
+	<button type="button" (click)="addImage()">Add Image</button>
 </div>

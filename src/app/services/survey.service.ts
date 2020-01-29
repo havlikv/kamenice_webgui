@@ -218,7 +218,11 @@ export class SurveyService
 	private purgeOption(survey: Survey, optionIndex: number)
 	{
 		const option = survey.options[optionIndex];
-		URL.revokeObjectURL(option.imageUrl);
+		for(let i = 0; i < option.images.length; i++)
+		{
+			URL.revokeObjectURL(option.images[i].imageUrl);
+		}
+		
 		survey.options.splice(optionIndex, 1);
 	}
 

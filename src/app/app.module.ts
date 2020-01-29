@@ -19,6 +19,7 @@ import { OptionsFormComponent } from './options-form/options-form.component';
 import { OverlayComponent } from './overlay/overlay.component';
 import { OverlayService } from "./services/overlay.service";
 import { FileValueAccessor } from './option-form/file-value-accessor';
+import { ImageFormComponent } from './image-form/image-form.component';
 
 
 
@@ -35,7 +36,8 @@ import { FileValueAccessor } from './option-form/file-value-accessor';
 		OptionFormComponent,
 		OptionsFormComponent,
 		OverlayComponent,
-		FileValueAccessor
+		FileValueAccessor,
+		ImageFormComponent
 	],
 	imports: [
 		BrowserModule,
