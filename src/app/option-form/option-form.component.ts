@@ -5,33 +5,7 @@ import { Option } from '../domain/option';
 import { Subscription } from "rxjs";
 import { OverlayService } from '../services/overlay.service';
 import { Image } from "../domain/image";
-
-
-
-function allImagesValid(images: FormArray): any
-{
-	let valid = true;
-	for(let i = 0; i < images.length; i++)
-	{
-		let image = images.controls[i];
-		if(!image.value.file)
-		{
-			valid = false;
-			break;
-		}
-	}
-
-	if(!valid)
-	{
-		return {
-			err: "XXX"
-		}
-	}
-	else
-	{
-		return null;
-	}
-}
+import { Utils } from '../utils/utils';
 
 
 
@@ -65,7 +39,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			id: new FormControl(""),
 			name: new FormControl("", Validators.required),
 			description: new FormControl("", Validators.required),
-			images: new FormArray([], allImagesValid)
+			images: new FormArray([])
 		})
 	}
 
@@ -74,10 +48,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	reset(): void
 	{
 		let images: FormArray = (this.formGroup.get("images") as FormArray);
-		while (images.length !== 0)
-		{
-			images.removeAt(0)
-		}
+		Utils.clearFormArray(images);
 		this.formGroup.reset();
 	}
 
@@ -110,6 +81,37 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 
 		images.removeAt(i);
 	}
+
+
+
+	shiftImage(imageIndex: number, shift: number): void
+	{
+		// XXX shift is either 1 or -1.
+		let newImageIndex = imageIndex + shift;
+
+		let images = (this.formGroup.get("images") as FormArray);
+		if(newImageIndex < 0 || newImageIndex >= images.length)
+		{
+			return;
+		}
+
+		let tmpFcs: AbstractControl[] = [];
+
+		for(let i = 0; i < images.controls.length; i++)
+		{
+			tmpFcs.push(images.controls[i]);
+		}
+		let tmpFc = tmpFcs[newImageIndex];
+		tmpFcs[newImageIndex] = tmpFcs[imageIndex];
+		tmpFcs[imageIndex] = tmpFc;
+
+		Utils.clearFormArray(images);
+		for(let i = 0; i < tmpFcs.length; i++)
+		{
+			images.push(tmpFcs[i]);
+		}
+	}
+
 
 
 	ngAfterViewInit()

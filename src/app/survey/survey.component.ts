@@ -155,7 +155,7 @@ export class SurveyComponent implements OnInit
 	{
 		let option: Option = this.optionFormGroups[i].value.option;
 
-		this.surveyService.updateOption(this.surveyId, this.optionFormGroups[i].value.option).subscribe(
+		this.surveyService.updateOption(this.surveyId, option).subscribe(
 			null, null,
 			() => {
 				this.loadOptions(this.surveyId);

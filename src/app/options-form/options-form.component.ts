@@ -47,8 +47,6 @@ export class OptionsFormComponent implements OnInit
 	{
 		let option: Option = this.formGroups[i].value.option;
 
-		Utils.adaptForDb(option);
-
 		this.formGroups[i].get("option").setValue(option);
 
 		this.formGroups[i].markAsPristine();

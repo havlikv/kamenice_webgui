@@ -1,16 +1,10 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormArray } from '@angular/forms';
 
 
 
 export abstract class Utils
 {
-	public static adaptForDb(option)
-	{
-		option.file = null;
-	}
-
-
-
 	public static compareNgbStructs(fromDate: NgbDateStruct, untilDate: NgbDateStruct): number
 	{
 		if(fromDate.year < untilDate.year)
@@ -45,6 +39,14 @@ export abstract class Utils
 		return 0;
 	}
 
+
+	public static clearFormArray(fa: FormArray): void
+	{
+		while (fa.length !== 0)
+		{
+			fa.removeAt(0)
+		}
+	}
 
 }
 

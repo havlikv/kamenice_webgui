@@ -150,8 +150,6 @@ export class SurveyService
 		option.id = this.optionSeq;
 		this.optionSeq++;
 
-		Utils.adaptForDb(option);
-
 		survey.options.push( SurveyService.deepCopyNoOption(option) );
 
 		return of();
@@ -177,11 +175,7 @@ export class SurveyService
 			return throwError("Cannot update.");
 		}
 
-		this.purgeOption(survey, optionIndex);
-
-		Utils.adaptForDb(option);
-
-		survey.options.splice(optionIndex, 0, option);
+		survey.options.splice(optionIndex, 1, option);
 
 		return of();
 	}
@@ -208,22 +202,9 @@ export class SurveyService
 			return throwError("Cannot delete.");
 		}
 
-		this.purgeOption(survey, optionIndex);
+		survey.options.splice(optionIndex, 1);
 
 		return of();
-	}
-
-
-
-	private purgeOption(survey: Survey, optionIndex: number)
-	{
-		const option = survey.options[optionIndex];
-		for(let i = 0; i < option.images.length; i++)
-		{
-			URL.revokeObjectURL(option.images[i].imageUrl);
-		}
-		
-		survey.options.splice(optionIndex, 1);
 	}
 
 

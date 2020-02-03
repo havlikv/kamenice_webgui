@@ -15,11 +15,13 @@
 
 
 	<label>Images</label>
-	<div formArrayName="images" *ngFor="let ximage of ximages; let i=index">
-		<app-image-form [formControl]="ximages[i]"></app-image-form>
-		<button *ngIf="i != 0" type="button">up</button>
-		<button *ngIf="i < ximages.length - 1" type="button">down</button>
-		<button type="button" (click)="deleteImage(i)">Delete</button>
+	<div formArrayName="images">
+		<div *ngFor="let ximage of ximages; let i=index">
+			<app-image-form [formControl]="ximages[i]"></app-image-form>
+			<button *ngIf="i != 0" type="button" (click)="shiftImage(i, -1)">up</button>
+			<button *ngIf="i < ximages.length - 1" type="button" (click)="shiftImage(i, 1)">down</button>
+			<button type="button" (click)="deleteImage(i)">Delete</button>
+		</div>
 	</div>
 
 	<button type="button" (click)="addImage()">Add Image</button>
