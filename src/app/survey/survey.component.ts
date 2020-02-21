@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { ControlValueAccessor, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { SurveyService } from '../services/survey.service';
+import { SurveyService, SURVEY_SERVICE_INJTOKEN } from '../services/survey.service';
 import { Survey } from "../domain/survey";
 import { Observable, throwError } from 'rxjs';
 import { Router } from "@angular/router";
@@ -41,7 +41,7 @@ export class SurveyComponent implements OnInit
 	optionFormGroups: FormGroup[] = [];
 
 
-	constructor(private route: ActivatedRoute, private surveyService: SurveyService, private router: Router)
+	constructor(private route: ActivatedRoute, @Inject(SURVEY_SERVICE_INJTOKEN) private surveyService: SurveyService, private router: Router)
 	{
 	}
 

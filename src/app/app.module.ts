@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { SortableDirective } from './sortable.directive';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SurveyService } from './services/survey.service';
+import { createSurveyService, SURVEY_SERVICE_INJTOKEN } from './services/survey.service';
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyFormComponent } from './survey-form/survey-form.component';
 
@@ -20,6 +20,7 @@ import { OverlayComponent } from './overlay/overlay.component';
 import { OverlayService } from "./services/overlay.service";
 import { FileValueAccessor } from './option-form/file-value-accessor';
 import { ImageFormComponent } from './image-form/image-form.component';
+import { HttpClientModule } from "@angular/common/http";
 
 
 
@@ -44,10 +45,11 @@ import { ImageFormComponent } from './image-form/image-form.component';
 		AppRoutingModule,
 		NgbModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		HttpClientModule
 	],
 	providers: [
-		SurveyService,
+		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService },
 		OverlayService
 
 	],

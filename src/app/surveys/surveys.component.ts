@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from "@angular/router";
 import { Survey } from '../domain/survey';
-import { SurveyService } from '../services/survey.service';
-import { Option } from '../domain/option';
+import { SurveyService, SURVEY_SERVICE_INJTOKEN } from '../services/survey.service';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { Observable }  from "rxjs";
 
 
 
@@ -21,7 +21,7 @@ export class SurveysComponent implements OnInit
 
 	surveys: Survey[] = [];
 
-	constructor(private surveyService: SurveyService, private router: Router)
+	constructor( @Inject(SURVEY_SERVICE_INJTOKEN) private surveyService: SurveyService, private router: Router)
 	{
 	}
 
@@ -81,7 +81,7 @@ export class SurveysComponent implements OnInit
 
 
 
-	get hasSurveys(): boolean
+	get hasSurveys(): Observable<boolean>
 	{
 		return this.surveyService.hasSurveys();
 	}

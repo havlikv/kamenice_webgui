@@ -8,7 +8,7 @@
 	<input type="submit" name="new" value="Uložit" [disabled]="formGroup.invalid" />
 </form>
 
-<ng-container *ngIf="hasSurveys ; else noSurveys">
+<ng-container *ngIf="hasSurveys | async ; else noSurveys">
 	<h3>Uložená hlasování</h3>
 	<table border="1">
 		<thead>
