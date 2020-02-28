@@ -26,13 +26,16 @@ import { BackendSurveyService } from './services/backend-survey.service';
 import { MockSurveyService } from './services/mock-survey.service';
 import { BusyService } from './services/busy.service';
 import { BusyComponent } from './busy/busy.component';
+import { ErrorshowComponent } from './errorshow/errorshow.component';
+import { ClickStopPropagationDirective } from './click-stop-propagation.directive';
+import { ErrorShowService } from './services/errorshow.service';
 
 
-export function createSurveyService(httpClient: HttpClient, busyService: BusyService): SurveyService
+export function createSurveyService(httpClient: HttpClient, busyService: BusyService, errorShowService: ErrorShowService): SurveyService
 {
 	if(environment["backend"])
 	{
-		return new BackendSurveyService(httpClient, busyService);
+		return new BackendSurveyService(httpClient, busyService, errorShowService);
 	}
 	else
 	{	
@@ -57,7 +60,9 @@ export function createSurveyService(httpClient: HttpClient, busyService: BusySer
 		OverlayComponent,
 		FileValueAccessor,
 		ImageFormComponent,
-		BusyComponent
+		BusyComponent,
+		ErrorshowComponent,
+		ClickStopPropagationDirective
 	],
 	imports: [
 		BrowserModule,
@@ -68,9 +73,8 @@ export function createSurveyService(httpClient: HttpClient, busyService: BusySer
 		HttpClientModule
 	],
 	providers: [
-		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService, deps: [ HttpClient, BusyService ] },
+		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService, deps: [ HttpClient, BusyService, ErrorShowService ] },
 		OverlayService
-
 	],
 	bootstrap: [AppComponent]
 })

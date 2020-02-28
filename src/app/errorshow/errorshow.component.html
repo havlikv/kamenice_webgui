@@ -1,0 +1,5 @@
+<div class="errorshow_overlay" *ngIf="error"  (click)="dismiss()">
+	<div class="error" appClickStopPropagation>
+		{{ error.error }}
+	</div>
+</div>

@@ -4,8 +4,9 @@ import { Option } from '../domain/option';
 import { SurveyService, BeSurvey } from './survey.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../environments/environment";
-import { tap, map, switchMap, finalize } from 'rxjs/operators';
+import { tap, map, switchMap, finalize, catchError } from 'rxjs/operators';
 import { BusyService } from './busy.service';
+import { ErrorShowService } from './errorshow.service';
 
 
 
@@ -18,7 +19,7 @@ export class BackendSurveyService implements SurveyService
 	private hasSurveysObs: Observable<boolean>;
 
 
-	constructor(private httpClient: HttpClient, private busyService: BusyService)
+	constructor(private httpClient: HttpClient, private busyService: BusyService, private errorShowService: ErrorShowService)
 	{
 		this.backendUrl = environment["backendUrl"];
 
@@ -155,6 +156,12 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.post<number>(`${this.backendUrl}/option`, option).pipe(
+			catchError( error => {
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}
+			),
 			finalize( () => this.busyService.hideBusy() )
 		);
 	}
