@@ -33,14 +33,20 @@ export class BackendSurveyService implements SurveyService
 	{
 		this.busyService.showBusy();
 
-		return this.httpClient.get<BeSurvey[]>(`${this.backendUrl}/survey`)
-			.pipe(
-				map((beSurveys: BeSurvey[]) =>
-				{
-					return beSurveys.map(BeSurvey.toSurvey);
-				}),
-				finalize(() => this.busyService.hideBusy())
-			);
+		return this.httpClient.get<BeSurvey[]>(`${this.backendUrl}/survey`).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
+			map((beSurveys: BeSurvey[]) =>
+			{
+				return beSurveys.map(BeSurvey.toSurvey);
+			}),
+			finalize(() => this.busyService.hideBusy())
+		);
 	}
 
 
@@ -50,6 +56,13 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.post<number>(`${this.backendUrl}/survey`, BeSurvey.toBeSurvey(survey)).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
 			finalize(() => this.busyService.hideBusy())
 		);
 	}
@@ -61,6 +74,13 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.put<void>(`${this.backendUrl}/survey`, BeSurvey.toBeSurvey(survey)).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
 			finalize(() => this.busyService.hideBusy())
 		);
 	}
@@ -72,6 +92,13 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.delete<void>(`${this.backendUrl}/survey?id=${id}`).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
 			finalize(() => this.busyService.hideBusy())
 		);
 	}
@@ -83,6 +110,13 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.get<boolean>(`${this.backendUrl}/has_surveys`).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
 			tap((x) =>
 			{
 				this.hasSurveysSubject.next(x);
@@ -103,11 +137,18 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.get<BeSurvey>(`${this.backendUrl}/survey_by_id?id=${id}`).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
 			map((beSurvey: BeSurvey) =>
 			{
 				return BeSurvey.toSurvey(beSurvey);
 			}),
-			finalize( () => this.busyService.hideBusy() ),
+			finalize(() => this.busyService.hideBusy()),
 			tap((survey: Survey) =>
 			{
 				this.setupImagesUrl(survey);
@@ -145,7 +186,14 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.get<Option[]>(`${this.backendUrl}/option?surveyId=${surveyId}`).pipe(
-			finalize( () => this.busyService.hideBusy() )
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
+			finalize(() => this.busyService.hideBusy())
 		);
 	}
 
@@ -155,14 +203,16 @@ export class BackendSurveyService implements SurveyService
 	{
 		this.busyService.showBusy();
 
-		return this.httpClient.post<number>(`${this.backendUrl}/option`, option).pipe(
-			catchError( error => {
+		delete option["images"];
+
+		return this.httpClient.post<number>(`${this.backendUrl}/option?survey_id=${surveyId}`, option).pipe(
+			catchError(error =>
+			{
 				this.errorShowService.showError(error);
 
 				return throwError(error);
-			}
-			),
-			finalize( () => this.busyService.hideBusy() )
+			}),
+			finalize(() => this.busyService.hideBusy())
 		);
 	}
 
@@ -173,7 +223,13 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.put<void>(`${this.backendUrl}/option`, option).pipe(
-			finalize( () => this.busyService.hideBusy() )
+			catchError( error => {
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
+			finalize(() => this.busyService.hideBusy())
 		);
 	}
 
@@ -184,7 +240,13 @@ export class BackendSurveyService implements SurveyService
 		this.busyService.showBusy();
 
 		return this.httpClient.delete<void>(`${this.backendUrl}/option?id=${id}`).pipe(
-			finalize( () => this.busyService.hideBusy() )
+			catchError( error => {
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
+			finalize(() => this.busyService.hideBusy())
 		);
 	}
 

@@ -140,10 +140,13 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		if(option)
 		{
 			let imagesFormArray = x.get("images") as FormArray;
-			for(let image of option.images)
+			if(option.images)
 			{
-				let imageFormControl = new FormControl(image);
-				imagesFormArray.push(imageFormControl);
+				for(let image of option.images)
+				{
+					let imageFormControl = new FormControl(image);
+					imagesFormArray.push(imageFormControl);
+				}
 			}
 			x.get("id").setValue(option.id);
 			x.get("name").setValue(option.name);

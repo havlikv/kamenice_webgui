@@ -196,7 +196,9 @@ export class SurveyComponent implements OnInit
 			let x = new FormGroup({
 				option: new FormControl("")
 			});
-			x.get("option").setValue(option);
+			x.setValue({
+				option: option
+			})
 			this.optionFormGroups.push(x);
 		}
 	}
