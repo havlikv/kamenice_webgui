@@ -99,13 +99,6 @@ export class MockSurveyService implements SurveyService
 
 
 
-	hasSurveys(): Observable<boolean>
-	{
-		return of(this.surveys.length > 0 );
-	}
-
-
-
 	getSurveyById(id: number): Observable<Survey>
 	{
 		const index = this.findSurveyIndexById(id);

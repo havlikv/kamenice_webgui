@@ -79,14 +79,7 @@ export class SurveysComponent implements OnInit
 
 	}
 
-
-
-	get hasSurveys(): Observable<boolean>
-	{
-		return this.surveyService.hasSurveys();
-	}
-
-
+	
 
 	deleteSurvey(id: number)
 	{

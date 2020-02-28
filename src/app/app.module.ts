@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { SortableDirective } from './sortable.directive';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { createSurveyService, SURVEY_SERVICE_INJTOKEN } from './services/survey.service';
+import { SURVEY_SERVICE_INJTOKEN, SurveyService } from './services/survey.service';
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyFormComponent } from './survey-form/survey-form.component';
 
@@ -20,7 +20,23 @@ import { OverlayComponent } from './overlay/overlay.component';
 import { OverlayService } from "./services/overlay.service";
 import { FileValueAccessor } from './option-form/file-value-accessor';
 import { ImageFormComponent } from './image-form/image-form.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { environment } from 'src/environments/environment';
+import { BackendSurveyService } from './services/backend-survey.service';
+import { MockSurveyService } from './services/mock-survey.service';
+
+
+export function createSurveyService(httpClient: HttpClient): SurveyService
+{
+	if(environment["backend"])
+	{
+		return new BackendSurveyService(httpClient);
+	}
+	else
+	{	
+		return new MockSurveyService();
+	}
+}
 
 
 
@@ -49,7 +65,7 @@ import { HttpClientModule } from "@angular/common/http";
 		HttpClientModule
 	],
 	providers: [
-		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService },
+		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService, deps: [ HttpClient ] },
 		OverlayService
 
 	],
