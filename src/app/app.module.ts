@@ -24,13 +24,15 @@ import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { BackendSurveyService } from './services/backend-survey.service';
 import { MockSurveyService } from './services/mock-survey.service';
+import { BusyService } from './services/busy.service';
+import { BusyComponent } from './busy/busy.component';
 
 
-export function createSurveyService(httpClient: HttpClient): SurveyService
+export function createSurveyService(httpClient: HttpClient, busyService: BusyService): SurveyService
 {
 	if(environment["backend"])
 	{
-		return new BackendSurveyService(httpClient);
+		return new BackendSurveyService(httpClient, busyService);
 	}
 	else
 	{	
@@ -54,7 +56,8 @@ export function createSurveyService(httpClient: HttpClient): SurveyService
 		OptionsFormComponent,
 		OverlayComponent,
 		FileValueAccessor,
-		ImageFormComponent
+		ImageFormComponent,
+		BusyComponent
 	],
 	imports: [
 		BrowserModule,
@@ -65,7 +68,7 @@ export function createSurveyService(httpClient: HttpClient): SurveyService
 		HttpClientModule
 	],
 	providers: [
-		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService, deps: [ HttpClient ] },
+		{ provide: SURVEY_SERVICE_INJTOKEN, useFactory: createSurveyService, deps: [ HttpClient, BusyService ] },
 		OverlayService
 
 	],

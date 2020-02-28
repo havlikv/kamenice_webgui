@@ -1,10 +1,11 @@
 import { Survey } from '../domain/survey';
-import { Observable, of, throwError, Subject }  from "rxjs";
+import { Observable, of, throwError, Subject } from "rxjs";
 import { Option } from '../domain/option';
 import { SurveyService, BeSurvey } from './survey.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../environments/environment";
-import { tap, map, switchMap } from 'rxjs/operators';
+import { tap, map, switchMap, finalize } from 'rxjs/operators';
+import { BusyService } from './busy.service';
 
 
 
@@ -17,7 +18,7 @@ export class BackendSurveyService implements SurveyService
 	private hasSurveysObs: Observable<boolean>;
 
 
-	constructor(private httpClient: HttpClient)
+	constructor(private httpClient: HttpClient, private busyService: BusyService)
 	{
 		this.backendUrl = environment["backendUrl"];
 
@@ -26,14 +27,18 @@ export class BackendSurveyService implements SurveyService
 	}
 
 
-	
+
 	getSurveys(): Observable<Survey[]>
 	{
+		this.busyService.showBusy();
+
 		return this.httpClient.get<BeSurvey[]>(`${this.backendUrl}/survey`)
 			.pipe(
-				map( (beSurveys: BeSurvey[]) => {
-					return beSurveys.map( BeSurvey.toSurvey );
-				} )
+				map((beSurveys: BeSurvey[]) =>
+				{
+					return beSurveys.map(BeSurvey.toSurvey);
+				}),
+				finalize(() => this.busyService.hideBusy())
 			);
 	}
 
@@ -41,47 +46,69 @@ export class BackendSurveyService implements SurveyService
 
 	createSurvey(survey: Survey): Observable<number>
 	{
-		return this.httpClient.post<number>(`${this.backendUrl}/survey`, BeSurvey.toBeSurvey(survey) );
+		this.busyService.showBusy();
+
+		return this.httpClient.post<number>(`${this.backendUrl}/survey`, BeSurvey.toBeSurvey(survey)).pipe(
+			finalize(() => this.busyService.hideBusy())
+		);
 	}
 
 
 
 	updateSurvey(survey: Survey): Observable<void>
 	{
-		return this.httpClient.put<void>(`${this.backendUrl}/survey`, BeSurvey.toBeSurvey(survey) );
+		this.busyService.showBusy();
+
+		return this.httpClient.put<void>(`${this.backendUrl}/survey`, BeSurvey.toBeSurvey(survey)).pipe(
+			finalize(() => this.busyService.hideBusy())
+		);
 	}
 
 
 
 	deleteSurvey(id: number): Observable<void>
 	{
-		return this.httpClient.delete<void>(`${this.backendUrl}/survey?id=${id}`);
+		this.busyService.showBusy();
+
+		return this.httpClient.delete<void>(`${this.backendUrl}/survey?id=${id}`).pipe(
+			finalize(() => this.busyService.hideBusy())
+		);
 	}
 
 
-	
+
 	get hasSurveys(): Observable<boolean>
 	{
-		return this.httpClient.get<boolean>(`${this.backendUrl}/has_surveys`)
-		.pipe(tap((x) => {
-			this.hasSurveysSubject.next(x);
-		}),
-		switchMap(
-			() => {
-				return this.hasSurveysObs;
-			}
-		)	);
+		this.busyService.showBusy();
+
+		return this.httpClient.get<boolean>(`${this.backendUrl}/has_surveys`).pipe(
+			tap((x) =>
+			{
+				this.hasSurveysSubject.next(x);
+			}),
+			finalize(() => this.busyService.hideBusy()),
+			switchMap(
+				() =>
+				{
+					return this.hasSurveysObs;
+				}
+			));
 	}
 
 
-	
+
 	getSurveyById(id: number): Observable<Survey>
 	{
+		this.busyService.showBusy();
+
 		return this.httpClient.get<BeSurvey>(`${this.backendUrl}/survey_by_id?id=${id}`).pipe(
-			map( (beSurvey: BeSurvey) => {
+			map((beSurvey: BeSurvey) =>
+			{
 				return BeSurvey.toSurvey(beSurvey);
 			}),
-			tap( ( survey: Survey ) => {
+			finalize( () => this.busyService.hideBusy() ),
+			tap((survey: Survey) =>
+			{
 				this.setupImagesUrl(survey);
 			})
 		);
@@ -91,51 +118,67 @@ export class BackendSurveyService implements SurveyService
 
 	private setupImagesUrl(survey: Survey)
 	{
-		if(!survey.options)
+		if (!survey.options)
 		{
 			return;
 		}
 
-		for(let option of survey.options)
+		for (let option of survey.options)
 		{
-			if(!option.images)
+			if (!option.images)
 			{
 				continue;
 			}
 
-			for(let image of option.images)
+			for (let image of option.images)
 			{
 				image.imageUrl = `${this.backendUrl}/images/${image.id}`;
 			}
 		}
 	}
 
-	
+
 
 	getOptions(surveyId: number): Observable<Option[]>
 	{
-		return this.httpClient.get<Option[]>(`${this.backendUrl}/option?surveyId=${surveyId}`);
+		this.busyService.showBusy();
+
+		return this.httpClient.get<Option[]>(`${this.backendUrl}/option?surveyId=${surveyId}`).pipe(
+			finalize( () => this.busyService.hideBusy() )
+		);
 	}
 
 
 
 	createOption(surveyId: number, option: Option): Observable<number>
 	{
-		return this.httpClient.post<number>(`${this.backendUrl}/option`, option);
+		this.busyService.showBusy();
+
+		return this.httpClient.post<number>(`${this.backendUrl}/option`, option).pipe(
+			finalize( () => this.busyService.hideBusy() )
+		);
 	}
 
 
 
 	updateOption(surveyId: number, option: Option): Observable<void>
 	{
-		return this.httpClient.put<void>(`${this.backendUrl}/option`, option);
+		this.busyService.showBusy();
+
+		return this.httpClient.put<void>(`${this.backendUrl}/option`, option).pipe(
+			finalize( () => this.busyService.hideBusy() )
+		);
 	}
 
 
 
 	deleteOption(surveyId: number, id: number): Observable<void>
 	{
-		return this.httpClient.delete<void>(`${this.backendUrl}/option?id=${id}`);
+		this.busyService.showBusy();
+
+		return this.httpClient.delete<void>(`${this.backendUrl}/option?id=${id}`).pipe(
+			finalize( () => this.busyService.hideBusy() )
+		);
 	}
 
 }
