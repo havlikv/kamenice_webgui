@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
 import { Survey } from '../domain/survey';
 import { Observable, of, throwError }  from "rxjs";
 import { Option } from '../domain/option';
-import { Utils } from '../utils/utils';
 import { SurveyService } from "./survey.service";
 
 
