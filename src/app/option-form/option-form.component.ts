@@ -4,7 +4,6 @@ import { AbstractControl, ValidationErrors } from "@angular/forms";
 import { Option } from '../domain/option';
 import { Subscription } from "rxjs";
 import { OverlayService } from '../services/overlay.service';
-import { Image } from "../domain/image";
 import { Utils } from '../utils/utils';
 
 
@@ -66,6 +65,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		let images: FormArray = this.formGroup.get("images") as FormArray;
 
 		let x = new FormControl({
+			id:null,
 			file: null,
 			imageUrl: null
 		});

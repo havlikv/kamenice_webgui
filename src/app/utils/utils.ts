@@ -48,5 +48,12 @@ export abstract class Utils
 		}
 	}
 
+
+
+	public static indexWithin(arr: any[],  index: number)
+	{
+		return Array.isArray(arr) && index < arr.length;
+	}
+
 }
 

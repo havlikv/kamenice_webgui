@@ -2,6 +2,8 @@ import { InjectionToken } from '@angular/core';
 import { Survey } from '../domain/survey';
 import { Observable, of, throwError }  from "rxjs";
 import { Option } from '../domain/option';
+import { Image } from "../domain/image";
+
 
 
 export const SURVEY_SERVICE_INJTOKEN = new InjectionToken<string>("SurveyService");
@@ -20,5 +22,6 @@ export interface SurveyService
 	createOption(surveyId: number, option: Option): Observable<number>;
 	updateOption(surveyId: number, option: Option): Observable<void>;
 	deleteOption(surveyId: number, optionId: number): Observable<void>;
+	createImage(optionId: number, image: Image): Observable<number>;
 }
 

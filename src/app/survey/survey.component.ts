@@ -138,15 +138,42 @@ export class SurveyComponent implements OnInit
 	{
 		let option = this.optionFormGroup.value.option;
 
-		this.surveyService.createOption(this.surveyId, this.optionFormGroup.value.option).subscribe(
-			null, null,
-			() => {
-				this.optionFormGroupComp.reset();
+		const images = option.images;
 
-				this.loadOptions(this.surveyId);
+		let index = 0;
+
+		const comp = this;
+
+		let createImages = function(optionId: number) {
+			let working = Utils.indexWithin(images, index);
+
+			if(working)
+			{
+				const image = images[index];
+				index++;
+
+				comp.surveyService.createImage(optionId, image).subscribe(
+					() => createImages(optionId),
+
+					null,
+
+					() => {
+						if(! Utils.indexWithin(images, index))
+						{
+							comp.optionFormGroupComp.reset();
+
+							comp.loadOptions(comp.surveyId);
+						}
+					}
+				);
+			}
+		};
+
+		this.surveyService.createOption(this.surveyId, option).subscribe(
+			(optionId) => {
+				createImages(optionId);
 			}
 		);
-
 	}
 
 

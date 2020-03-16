@@ -2,7 +2,7 @@ import { Survey } from '../domain/survey';
 import { Observable, of, throwError }  from "rxjs";
 import { Option } from '../domain/option';
 import { SurveyService } from "./survey.service";
-
+import { Image } from "../domain/image";
 
 
 export class MockSurveyService implements SurveyService
@@ -211,6 +211,13 @@ export class MockSurveyService implements SurveyService
 		}
 
 		return -1;
+	}
+
+
+
+	createImage(optionId: number, image: Image): Observable<number>
+	{
+		return of(0);
 	}
 
 

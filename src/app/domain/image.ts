@@ -1,6 +1,6 @@
 export interface Image
 {
 	id?: number;
-	file: string;
+	file: File;
 	imageUrl: string;
 }
