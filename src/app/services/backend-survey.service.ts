@@ -154,38 +154,11 @@ export class BackendSurveyService implements SurveyService
 			{
 				return BeSurvey.toSurvey(beSurvey);
 			}),
-			finalize(() => this.busyService.hideBusy()),
-			tap((survey: Survey) =>
-			{
-				this.setupImagesUrl(survey);
-			})
+			finalize(() => this.busyService.hideBusy())
 		);
 	}
 
-
-
-	private setupImagesUrl(survey: Survey)
-	{
-		if (!survey.options)
-		{
-			return;
-		}
-
-		for (let option of survey.options)
-		{
-			if (!option.images)
-			{
-				continue;
-			}
-
-			for (let image of option.images)
-			{
-				image.imageUrl = `${this.backendUrl}/images/${image.id}`;
-			}
-		}
-	}
-
-
+	
 
 	getOptions(surveyId: number): Observable<Option[]>
 	{
