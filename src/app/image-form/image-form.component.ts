@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, QueryList, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, QueryList, ViewChild, AfterViewInit, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ControlValueAccessor, Validator, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { Image } from '../domain/image';
 import { Subscription } from 'rxjs';
@@ -33,7 +33,7 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 {
 	formGroup: FormGroup;
 
-	@ViewChild(FormControlName) fileFcn: FormControlName;
+	@ViewChildren(FormControlName) fileFcns: FormControlName[];
 
 	private touchedFns = new Array<() => void>();
 
@@ -44,8 +44,8 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 	{
 		this.formGroup = new FormGroup({
 			id: new FormControl(""),
-			file: new FormControl("", isTruthy),
-			imageUrl: new FormControl("")
+			file: new FormControl(""),
+			imageUrl: new FormControl("", isTruthy)
 		});
 	}
 
@@ -62,11 +62,13 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 	{
 		let comp = this;
 
-		this.fileFcn.valueAccessor.registerOnTouched(function() {
+		const fileFcn = this.fileFcns.find( fcn => { return fcn.name === "file" });
+
+		fileFcn.valueAccessor.registerOnTouched(function() {
 				comp.touched.apply(comp);
 		});
 
-		this.fileFcn.valueAccessor.registerOnChange(function() {
+		fileFcn.valueAccessor.registerOnChange(function() {
 			let x: FormGroup = comp.formGroup;
 			let file: File = x.get("file").value;
 			let imageUrl = window.URL.createObjectURL(file);
