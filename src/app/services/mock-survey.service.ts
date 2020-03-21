@@ -215,9 +215,23 @@ export class MockSurveyService implements SurveyService
 
 
 
-	createImage(optionId: number, image: Image): Observable<number>
+	createImage(optionId: number, image: Image, seq: number): Observable<number>
 	{
 		return of(0);
+	}
+
+
+
+	deleteImage(imageId: number): Observable<void>
+	{
+		return of();
+	}
+
+
+
+	updateImageSeq(imageId: number, seq: number): Observable<void>
+	{
+		return of();
 	}
 
 

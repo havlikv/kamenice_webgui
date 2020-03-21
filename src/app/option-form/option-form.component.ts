@@ -5,6 +5,7 @@ import { Option } from '../domain/option';
 import { Subscription } from "rxjs";
 import { OverlayService } from '../services/overlay.service';
 import { Utils } from '../utils/utils';
+import { Image } from "../domain/image";
 
 
 
@@ -29,6 +30,8 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	private touchedFns = new Array<() => void>();
 
 	private subscribtions: Subscription[] = [];
+
+	private xDeletedImagesIds: number[] = [];
 
 
 
@@ -78,6 +81,12 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 	deleteImage(i: number): void
 	{
 		let images: FormArray = this.formGroup.get("images") as FormArray;
+
+		const imageValue: Image = images.at(i).value;
+		if(imageValue.id)
+		{
+			this.xDeletedImagesIds.push(imageValue.id);
+		}
 
 		images.removeAt(i);
 	}
@@ -194,5 +203,12 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		}
 
 		return null;
+	}
+
+	
+
+	get deletedImagesIds(): number[]
+	{
+		return this.xDeletedImagesIds;
 	}
 }

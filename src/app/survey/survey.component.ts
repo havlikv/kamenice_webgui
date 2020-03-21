@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, ViewChildren, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService, SURVEY_SERVICE_INJTOKEN } from '../services/survey.service';
@@ -35,10 +35,12 @@ export class SurveyComponent implements OnInit
 
 	optionFormGroup: FormGroup;
 
-	@ViewChild(OptionFormComponent)
-	optionFormGroupComp: OptionFormComponent;
+	@ViewChild(OptionFormComponent)	optionFormGroupComp: OptionFormComponent;
 
 	optionFormGroups: FormGroup[] = [];
+
+	@ViewChildren(OptionFormComponent) optionFormGroupComps: QueryList<OptionFormComponent>; // XXX All, including the first one, which is used for creating.
+
 
 
 	constructor(private route: ActivatedRoute, @Inject(SURVEY_SERVICE_INJTOKEN) private surveyService: SurveyService, private router: Router)
@@ -145,28 +147,24 @@ export class SurveyComponent implements OnInit
 		const comp = this;
 
 		let createImages = function(optionId: number) {
-			let working = Utils.indexWithin(images, index);
 
-			if(working)
+			if(! Utils.indexWithin(images, index))
 			{
-				const image = images[index];
-				index++;
+				comp.optionFormGroupComp.reset();
 
-				comp.surveyService.createImage(optionId, image).subscribe(
-					() => createImages(optionId),
+				comp.loadOptions(comp.surveyId);
 
-					null,
-
-					() => {
-						if(! Utils.indexWithin(images, index))
-						{
-							comp.optionFormGroupComp.reset();
-
-							comp.loadOptions(comp.surveyId);
-						}
-					}
-				);
+				return;
 			}
+
+			const image = images[index];
+			index++;
+
+			comp.surveyService.createImage(optionId, image, index).subscribe(
+				() => createImages(optionId),
+				null,
+				null
+			);
 		};
 
 		this.surveyService.createOption(this.surveyId, option).subscribe(
@@ -182,10 +180,76 @@ export class SurveyComponent implements OnInit
 	{
 		let option: Option = this.optionFormGroups[i].value.option;
 
+		const optionFormGroupComp = this.optionFormGroupComps.toArray()[i+1];
+		const imagesIdsToDelete = optionFormGroupComp.deletedImagesIds;
+
+		const images = option.images;
+
+		const comp = this;
+
+		let deleteIndex = 0;
+
+		let imageIndex = 0;
+
+		function doWork()
+		{
+			let deletingImages = Utils.indexWithin(imagesIdsToDelete, deleteIndex);
+			if(deletingImages)
+			{
+				const imageIdToDelete = imagesIdsToDelete[deleteIndex];
+				deleteIndex++;
+
+				comp.surveyService.deleteImage(imageIdToDelete).subscribe(
+					() => {
+						doWork();
+					},
+					null,
+					null
+				)
+			}
+			else
+			{
+				if(!images)
+				{
+					return;
+				}
+
+				if(! Utils.indexWithin(images, imageIndex))
+				{
+					comp.optionFormGroupComp.reset();
+
+					comp.loadOptions(comp.surveyId);
+
+					return;
+				}
+
+				const image = images[imageIndex];
+				imageIndex++;
+
+				if( Utils.isUndefOrNull(image.id) )
+				{
+					comp.surveyService.createImage(option.id, image, imageIndex).subscribe(
+						() => doWork(),
+						null,
+						null
+					);
+				}
+				else
+				{
+					comp.surveyService.updateImageSeq(image.id, imageIndex).subscribe(
+						() => doWork(),
+						null,
+						null
+					);
+				}
+			}
+
+		}
+
+
 		this.surveyService.updateOption(this.surveyId, option).subscribe(
-			null, null,
 			() => {
-				this.loadOptions(this.surveyId);
+				doWork();
 			}
 		);
 	}
@@ -201,6 +265,7 @@ export class SurveyComponent implements OnInit
 			}
 		);
 	}
+
 
 
 	loadOptions(surveyId: number)

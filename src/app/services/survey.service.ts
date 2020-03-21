@@ -22,6 +22,8 @@ export interface SurveyService
 	createOption(surveyId: number, option: Option): Observable<number>;
 	updateOption(surveyId: number, option: Option): Observable<void>;
 	deleteOption(surveyId: number, optionId: number): Observable<void>;
-	createImage(optionId: number, image: Image): Observable<number>;
+	createImage(optionId: number, image: Image, seq: number): Observable<number>;
+	deleteImage(imageId: number): Observable<void>;
+	updateImageSeq(imageId: number, seq: number): Observable<void>;
 }
 

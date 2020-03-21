@@ -55,5 +55,10 @@ export abstract class Utils
 		return Array.isArray(arr) && index < arr.length;
 	}
 
+
+	public static isUndefOrNull(x: any): boolean
+	{
+		return ( typeof x == "undefined") || x == null;
+	}
 }
 

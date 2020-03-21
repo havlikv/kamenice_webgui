@@ -205,7 +205,7 @@ export class BackendSurveyService implements SurveyService
 
 		let beOption = BeOption.toBeOption(option);
 
-		return this.httpClient.put<void>(`/option?survey_id=${surveyId}`, beOption).pipe(
+		return this.httpClient.put<void>(`${this.backendUrl}/option?survey_id=${surveyId}`, beOption).pipe(
 			catchError(error =>
 			{
 				this.errorShowService.showError(error);
@@ -238,14 +238,14 @@ export class BackendSurveyService implements SurveyService
 
 
 
-	createImage(optionId: number, image: Image): Observable<number>
+	createImage(optionId: number, image: Image, seq: number): Observable<number>
 	{
 		this.busyService.showBusy();
 
 		const formData = new FormData();
 		formData.append("blob", image.file);
 
-		return this.httpClient.post<number>(`${this.backendUrl}/image?option_id=${optionId}`, formData).pipe(
+		return this.httpClient.post<number>(`${this.backendUrl}/image?option_id=${optionId}&seq=${seq}`, formData).pipe(
 			catchError(error =>
 			{
 				this.errorShowService.showError(error);
@@ -312,10 +312,45 @@ export class BackendSurveyService implements SurveyService
 		});
 	}
 
+
+
+	deleteImage(id: number): Observable<void>
+	{
+		this.busyService.showBusy();
+
+		return this.httpClient.delete<void>(`${this.backendUrl}/image?id=${id}`).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
+
+			finalize(() => this.busyService.hideBusy())
+		);
+	}
+
+
+
+	updateImageSeq(id: number, seq: number): Observable<void>
+	{
+		this.busyService.showBusy();
+
+		return this.httpClient.put<void>(`${this.backendUrl}/image?id=${id}&seq=${seq}`, null).pipe(
+			catchError(error =>
+			{
+				this.errorShowService.showError(error);
+
+				return throwError(error);
+			}),
+
+
+			finalize(() => this.busyService.hideBusy())
+		);
+	}
+
 }
-
-
-
 
 
 
