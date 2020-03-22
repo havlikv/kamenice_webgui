@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, 
 import { Image } from '../domain/image';
 import { Subscription } from 'rxjs';
 import { OverlayService } from '../services/overlay.service';
+import { OptionFormComponent } from "../option-form/option-form.component";
+import { Utils } from '../utils/utils';
 
 
 
@@ -40,7 +42,7 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 	private subscribtions: Subscription[] = [];
 
 
-	constructor(private overlayService: OverlayService)
+	constructor(private overlayService: OverlayService, private parentOptionFormComp: OptionFormComponent)
 	{
 		this.formGroup = new FormGroup({
 			id: new FormControl(""),
@@ -73,6 +75,13 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 			let file: File = x.get("file").value;
 			let imageUrl = window.URL.createObjectURL(file);
 			x.get("imageUrl").setValue(imageUrl);
+			const id: number = x.get("id").value;
+
+			if(! Utils.isUndefOrNull(id))
+			{
+				comp.parentOptionFormComp.imageInvalid(id);
+				x.get("id").setValue(null);
+			}
 		});
 	}
 

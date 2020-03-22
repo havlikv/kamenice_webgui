@@ -181,7 +181,7 @@ export class SurveyComponent implements OnInit
 		let option: Option = this.optionFormGroups[i].value.option;
 
 		const optionFormGroupComp = this.optionFormGroupComps.toArray()[i+1];
-		const imagesIdsToDelete = optionFormGroupComp.deletedImagesIds;
+		const imagesIdsToDelete = optionFormGroupComp.imagesIdsTodelete;
 
 		const images = option.images;
 

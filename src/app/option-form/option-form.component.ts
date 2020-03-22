@@ -31,7 +31,8 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 
 	private subscribtions: Subscription[] = [];
 
-	private xDeletedImagesIds: number[] = [];
+	private deletedImagesIds: number[] = [];
+	private invalidImagesIds: number[] = [];
 
 
 
@@ -85,7 +86,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		const imageValue: Image = images.at(i).value;
 		if(imageValue.id)
 		{
-			this.xDeletedImagesIds.push(imageValue.id);
+			this.deletedImagesIds.push(imageValue.id);
 		}
 
 		images.removeAt(i);
@@ -205,10 +206,17 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 		return null;
 	}
 
-	
 
-	get deletedImagesIds(): number[]
+
+	imageInvalid(id: number): void
 	{
-		return this.xDeletedImagesIds;
+		this.invalidImagesIds.push(id);
+	}
+
+
+
+	get imagesIdsTodelete(): number[]
+	{
+		return this.deletedImagesIds.concat(this.invalidImagesIds);
 	}
 }
