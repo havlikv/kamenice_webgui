@@ -248,6 +248,7 @@ export class SurveyComponent implements OnInit
 
 
 		this.surveyService.updateOption(this.surveyId, option).subscribe(
+			null, null,
 			() => {
 				doWork();
 			}
