@@ -1,3 +1,28 @@
 input.ng-invalid {
 	border: 5px solid green;
 }
+
+
+
+#fileContainer {
+	position: relative;
+}
+
+
+
+input[type=file] {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+
+
+#fakeFileChooser {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}

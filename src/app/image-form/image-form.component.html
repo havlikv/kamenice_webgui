@@ -1,14 +1,21 @@
 <div [formGroup]="formGroup">
 	<input type="hidden" formControlName="id" />
 
-	
-	<div>
-		<label for="file">Foto</label>
-		<input type="file" id="file" formControlName="file" />
+
+	<div id="fileContainer">
+		<div>
+			<label for="file">Foto</label>
+			<input #file type="file" id="file" formControlName="file" />
+		</div>
+
+
+		<div id="fakeFileChooser">
+			<input type="text" [value]="filename" />
+			<button #button type="button">Soubor</button>
+		</div>
 	</div>
 
-
 	<figure *ngIf="!!imageUrl">
-		<img [src]="imageUrl | safe"  width="auto" height="100" (click)="doOverlay()" class="pointer" />
+		<img [src]="imageUrl | safe" width="auto" height="100" (click)="doOverlay()" class="pointer" />
 	</figure>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, QueryList, ViewChild, AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, OnDestroy, QueryList, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ControlValueAccessor, Validator, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { Image } from '../domain/image';
 import { Subscription } from 'rxjs';
@@ -41,6 +41,13 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 
 	private subscribtions: Subscription[] = [];
 
+	@ViewChild("file") file: ElementRef;
+
+	filename: string = null;
+
+	@ViewChild("button") button: ElementRef;
+
+
 
 	constructor(private overlayService: OverlayService, private parentOptionFormComp: OptionFormComponent)
 	{
@@ -64,6 +71,13 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 	{
 		let comp = this;
 
+		const buttonEl = this.button.nativeElement;
+		buttonEl.addEventListener("click", function() {
+			const fileEl = comp.file.nativeElement;
+			fileEl.click();
+		});
+
+
 		const fileFcn = this.fileFcns.find( fcn => { return fcn.name === "file" });
 
 		fileFcn.valueAccessor.registerOnTouched(function() {
@@ -73,6 +87,9 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 		fileFcn.valueAccessor.registerOnChange(function() {
 			let x: FormGroup = comp.formGroup;
 			let file: File = x.get("file").value;
+
+			comp.filename = file.name;
+
 			let imageUrl = window.URL.createObjectURL(file);
 			x.get("imageUrl").setValue(imageUrl);
 			const id: number = x.get("id").value;
@@ -105,6 +122,7 @@ export class ImageFormComponent implements AfterViewInit, OnDestroy, ControlValu
 		}
 
 		x.reset();
+		this.filename = null;
 	}
 
 
