@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, Inject, ViewChildren, QueryList } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService, SURVEY_SERVICE_INJTOKEN } from '../services/survey.service';
 import { Survey } from "../domain/survey";
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { Router } from "@angular/router";
 import { Option } from '../domain/option';
 import { switchMap } from 'rxjs/operators';
