@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, QueryList, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ControlValueAccessor, Validator, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
+import { Component, OnDestroy, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, AbstractControl, ValidationErrors, ControlValueAccessor, Validator, FormControlName, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { Image } from '../domain/image';
 import { Subscription } from 'rxjs';
 import { OverlayService } from '../services/overlay.service';
