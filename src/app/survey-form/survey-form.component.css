@@ -4,12 +4,52 @@
 
 
 
-.survey {
-	border: none;
+.formDiv {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+
+.noTakeWidth {
+	flex-grow: 0;
+}
+
+
+.takeWidth {
+	flex-grow: 1;
+}
+
+
+label {
+	width: 5rem;
+
+	vertical-align: top;
+	text-align: right;
+
+	font-weight: bold;
+
+	margin-right: 0.5rem;
 }
 
 
 
-.inlineBlock {
-	display: inline-block;
+.survey-form {
+	width: 100%;
+	background-color: rgb(200, 200, 200);
+	border-radius: 10px;
+
+	padding: 6px;
+}
+
+
+
+.formDiv:not(:last-child) {
+	margin-bottom: 6px;
+}
+
+
+
+input[type=text], textarea {
+	border-radius: 10px;
 }

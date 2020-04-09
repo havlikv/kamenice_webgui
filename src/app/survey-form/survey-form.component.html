@@ -1,42 +1,44 @@
-<div [formGroup]=formGroup class="survey">
+<div [formGroup]=formGroup class="survey-form">
 	<input type="hidden" formControlName="id" />
 
 
-	<div>
-		<label for="name">Krátce</label>
-		<input type="text" id="name" formControlName="name" />
+	<div class="formDiv">
+		<label for="name" class="noTakeWidth">Krátce</label>
+		<input type="text" id="name" formControlName="name" class="takeWidth" />
 	</div>
 
 
-	<div>
-		<label for="description">Popis</label>
-		<textarea id="description" formControlName="description"></textarea>
+	<div class="formDiv">
+		<label for="description" class="noTakeWidth">Popis</label>
+		<textarea id="description" formControlName="description" rows="2" class="takeWidth"></textarea>
 	</div>
 
 
-	<div>
-		<label>Datum od</label>
-		<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11" formControlName="fromDate" />
+	<div class="formDiv">
+		<label class="noTakeWidth">Datum od</label>
+		<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11"
+			formControlName="fromDate" class="takeWidth"/>
 	</div>
 
 
-	<div>
-		<label>Čas od</label>
-		<div class="inlineBlock">
+	<div class="formDiv">
+		<label class="noTakeWidth">Čas od</label>
+		<div class="takeWidth">
 			<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
 		</div>
 	</div>
 
 
-	<div>
-		<label>Datum do</label>
-		<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11" formControlName="untilDate" />
+	<div class="formDiv">
+		<label class="noTakeWidth">Datum do</label>
+		<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11"
+			formControlName="untilDate" class="takeWidth"/>
 	</div>
 
 
-	<div>
-		<label>Čas do</label>
-		<div class="inlineBlock">
+	<div class="formDiv">
+		<label class="noTakeWidth">Čas do</label>
+		<div class="takeWidth">
 			<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
 		</div>
 	</div>

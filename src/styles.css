@@ -1,16 +1,38 @@
 * {
-	font-size: 14px;
+	box-sizing: border-box;
+
+	font-family: 'Space Mono', monospace;
 }
+
 
 
 body {
-	margin-top: 2rem;
+	width:600px;
+	margin: 0 auto;
 }
 
-/* You can add global styles to this file, and also import other style files */
-label, input {
-	padding-top: 0;
-	padding-bottom: 0;
-	height: 2rem;
+
+
+.testBorder {
+	border: 1px solid black;
 }
 
+
+
+input.ngb-tp-input {
+	border: initial;
+	border-style: inset;
+	border-width: initial;
+	border-radius: 10px;
+}
+
+
+
+textarea {
+	border-style: inset;
+}
+
+
+input, textarea {
+	padding: 0 10px;
+}
