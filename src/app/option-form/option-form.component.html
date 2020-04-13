@@ -1,28 +1,38 @@
-<div [formGroup]="formGroup" class="option">
+<div [formGroup]="formGroup" class="width100">
 	<input type="hidden" formControlName="id" />
 
 
-	<div>
-		<label for="name">Krátce</label>
-		<input type="text" formControlName="name" id="name" />
+	<div class="width100 flexDiv formPart">
+		<label for="name" class="noTakeWidth">Krátce</label>
+		<input type="text" formControlName="name" id="name" class="takeWidth" />
 	</div>
 
 
-	<div>
-		<label for="description">Popis</label>
-		<textarea formControlName="description" id="description"></textarea>
+	<div class="width100 flexDiv formPart">
+		<label for="description" class="noTakeWidth">Popis</label>
+		<textarea formControlName="description" id="description" class="takeWidth"></textarea>
 	</div>
 
 
-	<label>Images</label>
-	<div formArrayName="images">
-		<div *ngFor="let ximage of ximages; let i=index">
-			<app-image-form [formControl]="ximages[i]"></app-image-form>
-			<button *ngIf="i != 0" type="button" (click)="shiftImage(i, -1)">up</button>
-			<button *ngIf="i < ximages.length - 1" type="button" (click)="shiftImage(i, 1)">down</button>
-			<button type="button" (click)="deleteImage(i)">Delete</button>
+	<div class="width100 formPart">
+		<div formArrayName="images">
+			<div *ngFor="let ximage of ximages; let i=index" class="flexDiv imageSeparator">
+				<app-image-form [formControl]="ximages[i]" class="takeWidth"></app-image-form>
+
+				<div class="vertFlexDiv rightmost noTakeWidth">
+					<div>
+						<button *ngIf="i != 0" type="button" (click)="shiftImage(i, -1)">Nahoru</button>
+					</div>
+					<div>
+						<button *ngIf="i < ximages.length - 1" type="button" (click)="shiftImage(i, 1)">Dolů</button>
+					</div>
+					<div>
+						<button type="button" (click)="deleteImage(i)">Smazat</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
-	<button type="button" (click)="addImage()">Add Image</button>
+	<button type="button" (click)="addImage()" title="Další obrázek">Další</button>
 </div>

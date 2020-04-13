@@ -1,33 +1,49 @@
-<a routerLink="/"><h3>Přehled hlasování</h3></a>
+<a routerLink="/"><h3> -> Přehled hlasování</h3></a>
 
 <ng-container *ngIf="errorMessage == null; else error">
 
-	<h1>Upravujete hlasování ID: {{ surveyId }}</h1>
+	<h2>ID hlasování: {{ surveyId }}</h2>
 
-	<form [formGroup]="surveyFormGroup" (ngSubmit)="updateSurvey()">
+	<form [formGroup]="surveyFormGroup" (ngSubmit)="updateSurvey()" class="form">
 		<app-survey-form   formControlName="survey"></app-survey-form>
 
-		<input type="submit" name="send" value="Upravit" [disabled]="! ( surveyFormGroup.dirty && surveyFormGroup.valid )" />
+		<div class="flexDiv">
+			<div class="rightmost">
+				<input type="submit" name="send" value="Upravit" [disabled]="! ( surveyFormGroup.dirty && surveyFormGroup.valid )" />
+			</div>
+		</div>
 	</form>
 
 
-	<form [formGroup]="optionFormGroup" (ngSubmit)="createOption()">
-			<h3>Zde zadejte novou volbu!</h3>
+	<h3>Zde zadejte novou volbu!</h3>
+	<form [formGroup]="optionFormGroup" (ngSubmit)="createOption()" class="form">
 			<app-option-form formControlName="option"></app-option-form>
 
-			<input type="submit" value="Uložit" [disabled]="optionFormGroup.invalid" />
+			<div class="flexDiv">
+				<div class="rightmost">
+					<input type="submit" value="Uložit" [disabled]="optionFormGroup.invalid" />
+				</div>
+			</div>
 	</form>
 
 
 	<h3 *ngIf="optionFormGroups.length > 0">Uložené volby</h3>
-	<div *ngFor="let xformGroup of optionFormGroups; let i = index">
+	<div *ngFor="let xformGroup of optionFormGroups; let i = index" class="form">
 		<form [formGroup]="optionFormGroups[i]" (ngSubmit)="updateOption(i)">
 			<app-option-form formControlName="option"></app-option-form>
 
-			<input type="submit" value="Upravit" [ngClass]="{'red-border': xformGroup.dirty }" [disabled]="! ( xformGroup.dirty && xformGroup.valid )" />
+			<div class="flexDiv">
+				<div class="rightmost">
+					<input type="submit" value="Upravit" [ngClass]="{'red-border': xformGroup.dirty }" [disabled]="! ( xformGroup.dirty && xformGroup.valid )" />
+				</div>
+			</div>
 		</form>
 
-		<button (click)="deleteOption(xformGroup.value.option.id)">Smazat</button>
+		<div class="flexDiv">
+			<div class="rightmost">
+				<button (click)="deleteOption(xformGroup.value.option.id)">Smazat</button>
+			</div>
+		</div>
 	</div>
 
 

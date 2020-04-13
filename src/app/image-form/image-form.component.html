@@ -1,21 +1,25 @@
-<div [formGroup]="formGroup">
+<div [formGroup]="formGroup" class="width100">
 	<input type="hidden" formControlName="id" />
 
 
-	<div id="fileContainer">
-		<div>
-			<label for="file">Foto</label>
+	<div class="width100">
+		<div class="hidden">
 			<input #file type="file" id="file" formControlName="file" />
 		</div>
 
 
-		<div id="fakeFileChooser">
-			<input type="text" [value]="filename" />
-			<button #button type="button">Soubor</button>
+		<div class="flexDiv">
+			<div class="noTakeWidth">
+				<button #button type="button">Soubor</button>
+			</div>
+			<div class="takeWidth">
+				<input type="text" [value]="filename" class="width95" [ngClass]="{'ng-invalid' : formGroup.get('imageUrl').invalid}" />
+			</div>
+
+			<figure *ngIf="!!imageUrl" class="rightmost">
+				<img [src]="imageUrl | safe" width="auto" height="100" (click)="doOverlay()" class="pointer" />
+			</figure>
 		</div>
 	</div>
 
-	<figure *ngIf="!!imageUrl">
-		<img [src]="imageUrl | safe" width="auto" height="100" (click)="doOverlay()" class="pointer" />
-	</figure>
 </div>

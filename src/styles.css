@@ -5,12 +5,23 @@
 }
 
 
+*:focus {
+	outline: none !important;
+}
+
+
+.width100 {
+	width: 100%;
+}
+
+
 
 body {
 	width:600px;
 	margin: 0 auto;
-}
 
+	padding-bottom: 1rem;
+}
 
 
 .testBorder {
@@ -18,21 +29,120 @@ body {
 }
 
 
-
-input.ngb-tp-input {
+input[type=text], textarea {
 	border: initial;
-	border-style: inset;
-	border-width: initial;
-	border-radius: 10px;
-}
-
-
-
-textarea {
-	border-style: inset;
-}
-
-
-input, textarea {
 	padding: 0 10px;
+	height: initial;
+	border-style: inset;
+	border-radius: 10px;
+	border-width: initial;
+}
+
+
+input[type=submit], button {
+	background-color: lightgreen;
+	border-radius: 6px;
+	margin: 2px 0;
+	border-right: 4px solid darkgray;
+	border-bottom: 4px solid darkgray;
+	width: 8rem;
+}
+
+
+input[type=submit]:active, button:active {
+	border-right: 4px solid white;
+	border-bottom: 4px solid white;
+}
+
+
+input[type=submit]:disabled, button:disabled {
+	background-color: lightgray;
+	color: black;
+	border-right: 4px solid darkgray;
+	border-bottom: 4px solid darkgray;
+}
+
+
+.noTakeWidth {
+	flex-grow: 0;
+}
+
+
+.takeWidth {
+	flex-grow: 1;
+}
+
+
+label {
+	width: 5rem;
+
+	vertical-align: top;
+	text-align: right;
+
+	font-weight: bold;
+
+	margin-right: 0.5rem;
+}
+
+
+.form {
+	background-color: rgb(200, 200, 200);
+	border-radius: 10px;
+
+	padding: 6px;
+}
+
+
+.form:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+
+.formPart:not(:last-child) {
+	margin-bottom: 6px;
+}
+
+
+.flexDiv {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+
+.rightmost {
+	margin-left: auto;
+}
+
+
+.vertFlexDiv {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+
+.centerFlexDiv {
+	display: flex;
+	justify-content: center;
+}
+
+
+.width95 {
+	width: 95%;
+}
+
+
+figure {
+	border: 4px solid grey;
+}
+
+
+.imageSeparator:not(:last-child) {
+	border-bottom: 2px solid grey;
+	margin-bottom: 1rem;
+}
+
+
+input.ng-invalid, textarea.ng-invalid {
+	border: 2px solid red;
 }

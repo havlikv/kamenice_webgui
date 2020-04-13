@@ -1,21 +1,24 @@
 <div>
-	<button (click)="toggleNewSurvey()">Nové hl.</button>
+	<button (click)="toggleNewSurvey()" title="Nové hlasování">Nové</button>
 </div>
 
-<form *ngIf="newSurveyVisible" [formGroup]="formGroup" (ngSubmit)="createSurvey()">
+<form *ngIf="newSurveyVisible" [formGroup]="formGroup" (ngSubmit)="createSurvey()" class="form">
 	<app-survey-form formControlName="survey"></app-survey-form>
 
-	<input type="submit" name="new" value="Uložit" [disabled]="formGroup.invalid" />
+	<div class="flexDiv">
+		<div class="rightmost">
+			<input type="submit" name="new" value="Uložit" [disabled]="formGroup.invalid"/>
+		</div>
+	</div>
 </form>
 
 <ng-container *ngIf="surveys.length > 0 ; else noSurveys">
 	<h3>Uložená hlasování</h3>
-	<table border="1">
+	<table border="1" class="width100">
 		<thead>
 			<tr>
 				<th scope="col">Id</th>
 				<th scope="col">Krátce</th>
-				<th scope="col">Popis</th>
 				<th scope="col">Datum a čas od</th>
 				<th scope="col">Datum a čas do</th>
 				<th scope="col">Smazat</th>
@@ -26,7 +29,6 @@
 				<a routerLink="{{ '/survey/' + survey.id }}">{{survey.id}}</a>
 			</td>
 			<td>{{survey.name}}</td>
-			<td>{{survey.description}}</td>
 			<td>{{survey.fromDate.year}}-{{survey.fromDate.month}}-{{survey.fromDate.day}}
 				{{survey.fromTime.hour}}:{{survey.fromTime.minute}}:{{survey.fromTime.second}}</td>
 			<td>{{survey.untilDate.year}}-{{survey.untilDate.month}}-{{survey.untilDate.day}}

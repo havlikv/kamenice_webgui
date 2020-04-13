@@ -1,45 +1,49 @@
-<div [formGroup]=formGroup class="survey-form">
+<div [formGroup]=formGroup class="width100">
 	<input type="hidden" formControlName="id" />
 
 
-	<div class="formDiv">
-		<label for="name" class="noTakeWidth">Krátce</label>
-		<input type="text" id="name" formControlName="name" class="takeWidth" />
+	<div class="width100 flexDiv formPart">
+		<label for="name">Krátce</label>
+		<input type="text" id="name" formControlName="name" maxlength="20" />
 	</div>
 
 
-	<div class="formDiv">
+	<div class="width100 flexDiv formPart">
 		<label for="description" class="noTakeWidth">Popis</label>
 		<textarea id="description" formControlName="description" rows="2" class="takeWidth"></textarea>
 	</div>
 
 
-	<div class="formDiv">
-		<label class="noTakeWidth">Datum od</label>
-		<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11"
-			formControlName="fromDate" class="takeWidth"/>
-	</div>
+	<div class="flexDiv width100 formPart">
+		<div class="flexDiv">
+			<label>Datum od</label>
+			<input type="text" ngbDatepicker #fromDate="ngbDatepicker" (click)="fromDate.toggle()" size="11"
+				formControlName="fromDate" />
+		</div>
 
 
-	<div class="formDiv">
-		<label class="noTakeWidth">Čas od</label>
-		<div class="takeWidth">
-			<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
+		<div class="rightmost flexDiv formPart">
+			<label>Čas od</label>
+			<div>
+				<ngb-timepicker [spinners]="false" formControlName="fromTime"></ngb-timepicker>
+			</div>
 		</div>
 	</div>
 
 
-	<div class="formDiv">
-		<label class="noTakeWidth">Datum do</label>
-		<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11"
-			formControlName="untilDate" class="takeWidth"/>
-	</div>
+	<div class="flexDiv width100 formPart">
+		<div class="flexDiv">
+			<label>Datum do</label>
+			<input type="text" ngbDatepicker #untilDate="ngbDatepicker" (click)="untilDate.toggle()" size="11"
+				formControlName="untilDate" />
+		</div>
 
 
-	<div class="formDiv">
-		<label class="noTakeWidth">Čas do</label>
-		<div class="takeWidth">
-			<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
+		<div class="rightmost flexDiv">
+			<label>Čas do</label>
+			<div>
+				<ngb-timepicker [spinners]="false" formControlName="untilTime"></ngb-timepicker>
+			</div>
 		</div>
 	</div>
 </div>
