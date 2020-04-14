@@ -1,5 +1,5 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormArray } from '@angular/forms';
+import { FormArray, ValidationErrors } from '@angular/forms';
 
 
 
@@ -56,9 +56,24 @@ export abstract class Utils
 	}
 
 
+
 	public static isUndefOrNull(x: any): boolean
 	{
 		return ( typeof x == "undefined") || x == null;
+	}
+
+	
+
+	public static isTruthyValidator(value): ValidationErrors | null
+	{
+		if(!!value)
+		{
+			return null;
+		}
+	
+		return {
+			err: "XXX"
+		}
 	}
 }
 

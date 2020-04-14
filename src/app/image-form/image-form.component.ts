@@ -10,15 +10,9 @@ import { Utils } from '../utils/utils';
 
 function isTruthy(control: FormControl): any
 {
-	if(!!control.value)
-	{
-		return null;
-	}
-
-	return {
-		err: "XXX"
-	}
+	return Utils.isTruthyValidator(control.value);
 }
+
 
 
 @Component({

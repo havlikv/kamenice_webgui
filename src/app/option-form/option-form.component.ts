@@ -9,6 +9,15 @@ import { Image } from "../domain/image";
 
 
 
+function isTruthyValidator(control: AbstractControl):  ValidationErrors | null
+{
+	const value = control.value["imageUrl"];
+
+	return Utils.isTruthyValidator(value);
+}
+
+
+
 @Component({
 	selector: 'app-option-form',
 	templateUrl: './option-form.component.html',
@@ -72,7 +81,7 @@ export class OptionFormComponent implements AfterViewInit, OnDestroy, ControlVal
 			id:null,
 			file: null,
 			imageUrl: null
-		});
+		}, isTruthyValidator );
 
 		images.push(x);
 	}
