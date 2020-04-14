@@ -9,23 +9,27 @@
 }
 
 
-
-.overlay-inside {
+.overlayInside {
 	z-index: 100;
 	position: fixed;
 	width: 80%;
 	height: 80%;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
 
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+.autoScroll {
 	overflow: auto;
 }
 
 
-
-div > img {
-	width: auto;
-	height : auto;
+img {
+	position: fixed;
+	
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
-
